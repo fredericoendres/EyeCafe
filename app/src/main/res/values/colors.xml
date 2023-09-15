@@ -3,4 +3,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="card">#6889BDD5</color>
+    <color name="flavor">#68AF89D5</color>
 </resources>

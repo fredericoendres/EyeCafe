@@ -10,6 +10,7 @@ import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
 
+    String API_URL = BuildConfig.MIDTRANS_API;
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
