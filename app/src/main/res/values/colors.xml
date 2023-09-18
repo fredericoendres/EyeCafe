@@ -4,4 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="card">#6889BDD5</color>
     <color name="flavor">#68AF89D5</color>
+    <color name="marrom">#883E3E</color>
+    <color name="marrom_escuro">#560000</color>
 </resources>
