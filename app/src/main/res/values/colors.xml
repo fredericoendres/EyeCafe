@@ -6,4 +6,5 @@
     <color name="flavor">#68AF89D5</color>
     <color name="marrom">#883E3E</color>
     <color name="marrom_escuro">#560000</color>
+    <color name="background_white">#F4F4F4</color>
 </resources>
