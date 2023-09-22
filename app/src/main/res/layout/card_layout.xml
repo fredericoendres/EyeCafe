@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ovos" />
+        tools:srcCompat="@drawable/ovos" />
 
     <TextView
         android:id="@+id/product_title"
@@ -26,7 +26,7 @@
         android:layout_margin="7dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
-        android:text="Ovos com bacon"
+        tools:text="@string/product_placeholder"
         android:textAlignment="center"
         android:textColor="@color/marrom"
         android:textSize="10sp"
@@ -43,7 +43,7 @@
         android:layout_marginTop="15dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
-        android:text="R$ 25,00"
+        tools:text="R$ 25,00"
         android:textStyle="bold"
         android:textAlignment="center"
         android:textColor="@color/marrom"
