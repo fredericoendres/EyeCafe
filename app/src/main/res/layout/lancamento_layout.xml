@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lancamento_layout"
+    android:layout_width="300dp"
+    android:layout_height="400dp"
+    android:layout_gravity="center"
+    android:background="@drawable/round_background"
+    android:elevation="10dp"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/title_lancamento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="top"
+        android:text="Lançando Item"
+        android:textColor="@color/marrom"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/shapeableImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/shapeableImageView"
+        android:layout_marginBottom="15dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ovos"
+        app:layout_constraintBottom_toTopOf="@+id/quant_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
+
+    <TextView
+        android:id="@+id/product_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Ovos com bacon"
+        android:textAlignment="textStart"
+        android:textColor="@color/marrom"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/product_price"
+        app:layout_constraintStart_toEndOf="@+id/shapeableImageView"
+        app:layout_constraintTop_toBottomOf="@+id/title_lancamento" />
+
+    <TextView
+        android:id="@+id/product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="R$ 25,00"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="15dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/marrom"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/quant_title"
+        app:layout_constraintStart_toEndOf="@+id/shapeableImageView" />
+
+    <View
+        android:layout_width="73dp"
+        android:layout_height="0.5dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/marrom"
+        app:layout_constraintBottom_toTopOf="@+id/qnt_add"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <View
+        android:layout_width="73dp"
+        android:layout_height="0.5dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/marrom"
+        app:layout_constraintBottom_toTopOf="@+id/qnt_add"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/quant_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:layout_marginBottom="24dp"
+        android:text="Quantidade"
+        android:textAlignment="center"
+        android:textColor="@color/marrom"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/qnt_counter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/qnt_add"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/round"
+        android:backgroundTint="@color/marrom"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center"
+        android:text="+"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/total_text"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toEndOf="@+id/qnt_counter" />
+
+    <Button
+        android:id="@+id/qnt_sub"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/round"
+        android:backgroundTint="@color/marrom"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center"
+        android:text="-"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/total_text"
+        app:layout_constraintEnd_toStartOf="@+id/qnt_counter"/>
+
+    <Button
+        android:id="@+id/qnt_counter"
+        android:layout_width="54dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/round_background"
+        android:backgroundTint="@color/btn_light"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center"
+        android:text="4"
+        android:textColor="@color/marrom"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/total_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/total_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Total: R$"
+        android:textColor="@color/marrom"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/observation_text"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/observation_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Observação"
+        android:textColor="@color/marrom"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/round_background"
+        android:backgroundTint="@color/btn_light"
+        android:fontFamily="@font/montserrat_bold"
+        android:padding="16dp"
+        android:textColor="@color/marrom"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_adicionar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_voltar"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:background="@drawable/round_background"
+        android:backgroundTint="@color/btn_light"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="VOLTAR"
+        android:textColor="@color/marrom"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_adicionar"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:background="@drawable/round_background"
+        android:backgroundTint="@color/marrom"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="ADICIONAR"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

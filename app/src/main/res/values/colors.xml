@@ -7,4 +7,5 @@
     <color name="marrom">#883E3E</color>
     <color name="marrom_escuro">#560000</color>
     <color name="background_white">#F4F4F4</color>
+    <color name="btn_light">#f0e7e7</color>
 </resources>

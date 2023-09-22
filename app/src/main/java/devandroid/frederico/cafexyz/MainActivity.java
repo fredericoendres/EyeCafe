@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    String API_URL = BuildConfig.MIDTRANS_API;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
