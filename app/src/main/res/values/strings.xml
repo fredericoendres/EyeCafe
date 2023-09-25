@@ -4,4 +4,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_text">Eye Coffee</string>
     <string name="product_placeholder">Ovos com bacon</string>
+    <string name="observacao">Observação</string>
+    <string name="edit_title">Editando o Item</string>
+    <string name="price_placeholder">R$ 25,00</string>
+    <string name="adicionar_text">ADICIONAR</string>
+    <string name="voltar_text">VOLTAR</string>
 </resources>

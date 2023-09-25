@@ -12,5 +12,44 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="MainTitle" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/marrom</item>
+        <item name="fontFamily">@font/montserrat_bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SecondaryTitle" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/marrom</item>
+        <item name="fontFamily">@font/montserrat_bold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MediumText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/marrom</item>
+        <item name="fontFamily">@font/montserrat_bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SmallText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/marrom</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="SmallBold" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/marrom</item>
+        <item name="fontFamily">@font/montserrat_bold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CardText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/marrom</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textSize">10sp</item>
+    </style>
 
 </resources>
