@@ -17,15 +17,27 @@
         style="@style/MainTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:gravity="top"
-        android:text="Lançando Item"
+        android:layout_marginTop="18dp"
+        android:textAlignment="center"
+        android:text="Percentual do desconto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/discount_value"
+        style="@style/NumPad"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="10%"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_lancamento" />
+
     <Button
-        android:id="@+id/qnt_sub5"
+        android:id="@+id/qnt_sub0"
         style="@style/NumPad"
         android:layout_width="90dp"
         android:layout_height="90dp"
@@ -35,7 +47,7 @@
         android:gravity="center"
         android:text="0"
         android:textColor="@color/marrom"
-        app:layout_constraintBottom_toTopOf="@+id/btn_adicionar"
+        app:layout_constraintBottom_toTopOf="@+id/btn_ok"
         app:layout_constraintEnd_toStartOf="@+id/qnt_sub_delete"
         app:layout_constraintStart_toEndOf="@+id/qnt_sub" />
 
@@ -44,13 +56,13 @@
         style="@style/MediumText"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_marginBottom="26dp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/round"
         android:backgroundTint="@color/marrom_light"
         android:gravity="center"
         android:text="LIMPAR"
         android:textColor="@color/marrom"
-        app:layout_constraintBottom_toTopOf="@+id/btn_voltar"
+        app:layout_constraintBottom_toTopOf="@+id/btn_cancelar"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -68,7 +80,90 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        android:id="@+id/qnt_sub9"
+        style="@style/NumPad"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="9dp"
+        android:background="@drawable/round"
+        android:backgroundTint="@color/marrom_light"
+        android:gravity="center"
+        android:text="9"
+        android:textColor="@color/marrom"
+        app:layout_constraintBottom_toTopOf="@+id/qnt_sub_delete"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/qnt_sub6"
+        style="@style/NumPad"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="9dp"
+        android:background="@drawable/round"
+        android:backgroundTint="@color/marrom_light"
+        android:gravity="center"
+        android:text="6"
+        android:textColor="@color/marrom"
+        app:layout_constraintBottom_toTopOf="@+id/qnt_sub9"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/qnt_sub3"
+        style="@style/NumPad"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="9dp"
+        android:background="@drawable/round"
+        android:backgroundTint="@color/marrom_light"
+        android:text="3"
+        android:textColor="@color/marrom"
+        app:layout_constraintBottom_toTopOf="@+id/qnt_sub6"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
         android:id="@+id/qnt_sub8"
+        style="@style/NumPad"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="9dp"
+        android:background="@drawable/round"
+        android:backgroundTint="@color/marrom_light"
+        android:text="8"
+        android:textColor="@color/marrom"
+        app:layout_constraintBottom_toTopOf="@+id/qnt_sub0"
+        app:layout_constraintEnd_toStartOf="@+id/qnt_sub9"
+        app:layout_constraintStart_toEndOf="@+id/qnt_sub7" />
+
+    <Button
+        android:id="@+id/qnt_sub5"
+        style="@style/NumPad"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="9dp"
+        android:background="@drawable/round"
+        android:backgroundTint="@color/marrom_light"
+        android:text="5"
+        android:textColor="@color/marrom"
+        app:layout_constraintBottom_toTopOf="@+id/qnt_sub8"
+        app:layout_constraintEnd_toStartOf="@+id/qnt_sub6"
+        app:layout_constraintStart_toEndOf="@+id/qnt_sub4" />
+
+    <Button
+        android:id="@+id/qnt_sub2"
+        style="@style/NumPad"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="9dp"
+        android:background="@drawable/round"
+        android:backgroundTint="@color/marrom_light"
+        android:text="2"
+        android:textColor="@color/marrom"
+        app:layout_constraintBottom_toTopOf="@+id/qnt_sub5"
+        app:layout_constraintEnd_toStartOf="@+id/qnt_sub3"
+        app:layout_constraintStart_toEndOf="@+id/qnt_sub1" />
+
+    <Button
+        android:id="@+id/qnt_sub4"
         style="@style/NumPad"
         android:layout_width="90dp"
         android:layout_height="90dp"
@@ -92,7 +187,7 @@
         android:gravity="center"
         android:text="1"
         android:textColor="@color/marrom"
-        app:layout_constraintBottom_toTopOf="@+id/qnt_sub8"
+        app:layout_constraintBottom_toTopOf="@+id/qnt_sub4"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
@@ -106,12 +201,12 @@
         android:gravity="center"
         android:src="@drawable/delete_icon"
         android:textColor="@color/marrom"
-        app:layout_constraintBottom_toTopOf="@+id/btn_adicionar"
+        app:layout_constraintBottom_toTopOf="@+id/btn_ok"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/btn_voltar"
-        style="@style/SmallBold"
+        android:id="@+id/btn_cancelar"
+        style="@style/MediumText"
         android:layout_width="132dp"
         android:layout_height="53dp"
         android:background="@drawable/round_background"
@@ -121,8 +216,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btn_adicionar"
-        style="@style/SmallBold"
+        android:id="@+id/btn_ok"
+        style="@style/MediumText"
         android:layout_width="123dp"
         android:layout_height="53dp"
         android:background="@drawable/round_background"

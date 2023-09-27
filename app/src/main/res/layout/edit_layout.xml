@@ -82,12 +82,12 @@
         android:backgroundTint="@color/marrom_light"
         android:padding="16dp"
         style="@style/SmallText"
-        app:layout_constraintBottom_toTopOf="@+id/btn_adicionar"
+        app:layout_constraintBottom_toTopOf="@+id/btn_ok"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btn_voltar"
+        android:id="@+id/btn_cancelar"
         android:layout_width="120dp"
         android:layout_height="40dp"
         android:background="@drawable/round_background"
@@ -98,7 +98,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btn_adicionar"
+        android:id="@+id/btn_ok"
         android:layout_width="120dp"
         android:layout_height="40dp"
         android:background="@drawable/round_background"
