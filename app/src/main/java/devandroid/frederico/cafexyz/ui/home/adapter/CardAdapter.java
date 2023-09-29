@@ -1,4 +1,4 @@
-package devandroid.frederico.cafexyz;
+package devandroid.frederico.cafexyz.ui.home.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+
+import devandroid.frederico.cafexyz.data.ProductModel;
+import devandroid.frederico.cafexyz.R;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
@@ -36,6 +39,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         holder.productPrice.setText(model.getProductPrice());
         holder.productImage.setImageResource(model.getProductImage());
     }
+
+    //usar condicional para dar gone na barra que separa os items
+    //utilizar transição
 
     @Override
     public int getItemCount() {

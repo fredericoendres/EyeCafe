@@ -1,16 +1,16 @@
-package devandroid.frederico.cafexyz;
+package devandroid.frederico.cafexyz.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
-import com.google.android.material.tabs.TabLayout;
-
 import java.util.ArrayList;
+
+import devandroid.frederico.cafexyz.ui.home.adapter.CardAdapter;
+import devandroid.frederico.cafexyz.data.ProductModel;
+import devandroid.frederico.cafexyz.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,9 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
         CardAdapter courseAdapter = new CardAdapter(this, productModelArrayList);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-
-        productRecycle.setLayoutManager(linearLayoutManager);
         productRecycle.setAdapter(courseAdapter);
 
     }

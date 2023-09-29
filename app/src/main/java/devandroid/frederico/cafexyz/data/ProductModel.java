@@ -1,4 +1,4 @@
-package devandroid.frederico.cafexyz;
+package devandroid.frederico.cafexyz.data;
 
 public class ProductModel {
 
