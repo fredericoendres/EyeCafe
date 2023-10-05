@@ -4,50 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="83dp"
     android:layout_margin="20dp"
-    android:background="@drawable/round_background_small"
     android:elevation="10dp">
 
+    <Button
+        android:id="@+id/qnt_item"
+        style="@style/MainTitle"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/round"
+        android:backgroundTint="@color/marrom"
+        android:text="1"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/productImage"
-        android:layout_width="105dp"
-        android:layout_height="105dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/round_background_small"
+        android:clipToOutline="true"
+        android:layout_marginBottom="19dp"
+        android:layout_marginStart="13dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@drawable/ovos" />
 
     <TextView
         android:id="@+id/product_title"
+        style="@style/SmallText"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="top"
+        android:maxWidth="85sp"
+        app:layout_constraintBottom_toTopOf="@+id/product_price"
+        app:layout_constraintStart_toEndOf="@+id/productImage"
+        tools:text="@string/product_placeholder" />
+
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="7dp"
-        android:gravity="center"
-        tools:text="@string/product_placeholder"
-        android:textAlignment="center"
-        style="@style/CardText"
-        android:textSize="10sp"
-        android:maxWidth="85sp"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productImage"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ellipsis_vertical" />
 
     <TextView
         android:id="@+id/product_price"
+        style="@style/SmallBold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="25dp"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
-        tools:text="R$ 25,00"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="24dp"
         android:textAlignment="center"
-        style="@style/SmallBold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/productImage"
+        tools:text="R$ 25,00" />
+
+    <View
+        android:id="@+id/separacao"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DBDBDB"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/product_title" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

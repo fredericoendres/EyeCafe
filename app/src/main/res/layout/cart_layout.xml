@@ -6,75 +6,22 @@
     android:layout_height="match_parent"
     android:background="@color/background_white">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/topBar"
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:background="@drawable/round_background"
+        android:layout_marginHorizontal="20dp"
+        android:id="@+id/cart_recycle"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/round_bar"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="50dp"
+        tools:listitem="@layout/cart_recycle"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/returnButton"
-            android:layout_width="18dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="20dp"
-            android:scaleX="-1"
-            android:backgroundTint="@android:color/transparent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/seta_icon" />
-
-        <ImageView
-            android:id="@+id/cartImage"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/returnButton"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/carrinho_icon" />
-
-        <TextView
-            android:id="@+id/carrinhoText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:text="Carrinho"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toEndOf="@id/cartImage"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="102dp" />
-
-        <ImageView
-            android:id="@+id/imageLimpar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="17dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/group_4698" />
-
-        <TextView
-            android:id="@+id/limparText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="9dp"
-            style="@style/MediumText"
-            android:textColor="@color/white"
-            android:text="Limpar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageLimpar"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="parent"/>
 
 
 
