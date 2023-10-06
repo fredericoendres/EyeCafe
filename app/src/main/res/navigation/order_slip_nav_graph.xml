@@ -8,4 +8,10 @@
         android:id="@+id/homeFragment"
         android:name="devandroid.frederico.cafexyz.ui.home.adapter.HomeFragment"
         android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="devandroid.frederico.cafexyz.ui.payment.PaymentFragment"
+        android:label="PaymentFragment" />
+
+
 </navigation>
