@@ -31,7 +31,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        RecyclerView productRecycle = getView().findViewById(R.id.product_recycle);
+        RecyclerView productRecycle = findViewById(R.id.product_recycle);
 
         ArrayList<ProductModel> productModelArrayList = new ArrayList<ProductModel>();
         productModelArrayList.add(new ProductModel("Ovos com bacon", "R$ 25,00", R.drawable.ovos));
