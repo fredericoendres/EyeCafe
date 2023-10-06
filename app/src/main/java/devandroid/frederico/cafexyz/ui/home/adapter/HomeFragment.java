@@ -30,8 +30,8 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        RecyclerView productRecycle = findViewById(R.id.product_recycle);
+        View view = inflater.inflate(R.layout.home_fragment, container, false);
+        RecyclerView productRecycle = view.findViewById(R.id.product_recycle);
 
         ArrayList<ProductModel> productModelArrayList = new ArrayList<ProductModel>();
         productModelArrayList.add(new ProductModel("Ovos com bacon", "R$ 25,00", R.drawable.ovos));
@@ -41,6 +41,6 @@ public class HomeFragment extends Fragment {
 
         productRecycle.setAdapter(courseAdapter);
 
-        return inflater.inflate(R.layout.home_fragment, container, false);
+        return view;
     }
 }
