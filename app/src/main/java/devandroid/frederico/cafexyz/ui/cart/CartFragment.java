@@ -1,4 +1,4 @@
-package devandroid.frederico.cafexyz.ui.payment;
+package devandroid.frederico.cafexyz.ui.cart;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,10 +9,9 @@ import androidx.fragment.app.Fragment;
 
 import devandroid.frederico.cafexyz.R;
 
+public class CartFragment extends Fragment {
 
-public class PaymentFragment extends Fragment {
-
-    public PaymentFragment() {
+    public CartFragment() {
         // Required empty public constructor
     }
 
@@ -25,7 +24,7 @@ public class PaymentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.payment_fragment, container, false);
+        View view = inflater.inflate(R.layout.cart_fragment, container, false);
 
         return view;
     }

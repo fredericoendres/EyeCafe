@@ -6,6 +6,7 @@ import androidx.annotation.IdRes;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.data.ProductModel;
 import devandroid.frederico.cafexyz.ui.MainActivity;
+import devandroid.frederico.cafexyz.ui.payment.PaymentFragment;
 
 
 public class HomeFragment extends Fragment {
@@ -40,13 +42,15 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         RecyclerView productRecycle = view.findViewById(R.id.product_recycle);
-
+        NavController navController = NavHostFragment.findNavController(this);
 
         Button button = view.findViewById(R.id.buttonhome);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(requireActivity(), R.id.paymentFragment);
+                //o erro anterior estava acontecendo pois o button ta dentro do fragment, e nao na activity, sendo
+                //assim eu tinha que declarar o findNavController pra procurar dentro desse fragment
+                navController.navigate(R.id.cartFragment);
             }
         });
 
