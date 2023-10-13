@@ -9,6 +9,19 @@
     android:background="@drawable/round_background_small"
     android:elevation="10dp">
 
+    <Button
+        android:id="@+id/qnt_item"
+        style="@style/MainTitle"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:background="@drawable/square_background"
+        android:backgroundTint="@color/marrom"
+        android:text="1"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageView
         android:id="@+id/productImage"

@@ -23,7 +23,7 @@ import devandroid.frederico.cafexyz.ui.MainActivity;
 import devandroid.frederico.cafexyz.ui.payment.PaymentFragment;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements RecycleViewInterface {
 
     private NavController navController;
 
@@ -45,6 +45,7 @@ public class HomeFragment extends Fragment {
         NavController navController = NavHostFragment.findNavController(this);
 
         Button button = view.findViewById(R.id.buttonhome);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,10 +60,15 @@ public class HomeFragment extends Fragment {
         productModelArrayList.add(new ProductModel("Ovos com bacon", "R$ 25,00", R.drawable.ovos));
         productModelArrayList.add(new ProductModel("Kit café com waffle", "R$ 30,00", R.drawable.waffles));
 
-        CardAdapter courseAdapter = new CardAdapter(getContext(), productModelArrayList);
+        CardAdapter courseAdapter = new CardAdapter(getContext(), productModelArrayList, this);
 
         productRecycle.setAdapter(courseAdapter);
 
         return view;
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
     }
 }

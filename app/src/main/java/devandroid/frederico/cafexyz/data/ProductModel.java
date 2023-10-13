@@ -35,4 +35,6 @@ public class ProductModel {
     public void setProductImage(int productImage) {
         this.productImage = productImage;
     }
+
+
 }
