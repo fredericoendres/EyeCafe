@@ -42,10 +42,10 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         RecyclerView productRecycle = view.findViewById(R.id.product_recycle);
-        NavController navController = NavHostFragment.findNavController(this);
+
+        /*NavController navController = NavHostFragment.findNavController(this);
 
         Button button = view.findViewById(R.id.buttonhome);
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,7 +53,7 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
                 //assim eu tinha que declarar o findNavController pra procurar dentro desse fragment
                 navController.navigate(R.id.cartFragment);
             }
-        });
+        });*/
 
 
         ArrayList<ProductModel> productModelArrayList = new ArrayList<ProductModel>();

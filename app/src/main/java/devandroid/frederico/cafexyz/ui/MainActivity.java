@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         ImageView nextButton = findViewById(R.id.arrowBottom);
         ImageView nextButton2 = findViewById(R.id.arrowBottom2);
+        ImageView cartBottom = findViewById(R.id.cartBottom);
         View bottomBar = findViewById(R.id.bottomBar);
         View bottomBar2 = findViewById(R.id.bottomBar2);
         Animation fadeIn = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fade_in);
@@ -50,13 +51,23 @@ public class MainActivity extends AppCompatActivity {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMain);
         NavController navController = navHostFragment.getNavController();
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
+        cartBottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 navController.navigate(R.id.cartFragment);
 
 
 
+                bottomBar.startAnimation(fadeOut);
+                bottomBar2.startAnimation(fadeIn);
+                bottomBar.setVisibility(View.GONE);
+                bottomBar2.setVisibility(View.VISIBLE);
+            }
+        });
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.cartFragment);
                 bottomBar.startAnimation(fadeOut);
                 bottomBar2.startAnimation(fadeIn);
                 bottomBar.setVisibility(View.GONE);
@@ -72,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 bottomBar2.setVisibility(View.GONE);
             }
         });
+
 
     }
 }

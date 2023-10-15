@@ -54,7 +54,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     }
 
 // só funciona se eu remover o static do metodo, sei que não é recomendado, buscar contorno
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView productTitle;
         private final TextView productPrice;
         private final ImageView productImage;
@@ -71,6 +71,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                 public void onClick(View view) {
                     if (recycleViewInterface != null) {
                         int pos = getAdapterPosition();
+                        qntBtn.setVisibility(View.VISIBLE);
                         if(pos != RecyclerView.NO_POSITION) {
                             clickCount[pos]++; // Increment the click count for this item
                             qntBtn.setText(String.valueOf(clickCount[pos])); // Set the updated value

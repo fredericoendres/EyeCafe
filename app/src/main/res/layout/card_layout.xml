@@ -17,6 +17,7 @@
         android:background="@drawable/square_background"
         android:backgroundTint="@color/marrom"
         android:text="1"
+        android:visibility="gone"
         android:textAlignment="center"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"

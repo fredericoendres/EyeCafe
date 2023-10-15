@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -39,6 +40,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.productTitle.setText(model.getProductTitle());
         holder.productPrice.setText(model.getProductPrice());
         holder.productImage.setImageResource(model.getProductImage());
+        holder.editDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Open the Dialog here
+                DeleteDialogFragment deleteDialogFragment = new DeleteDialogFragment();
+                deleteDialogFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), "delete_dialog");
+            }
+        });
     }
 
     @Override
@@ -50,12 +59,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         private final TextView productTitle;
         private final TextView productPrice;
         private final ImageView productImage;
+        private final ImageView editDialog;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             productImage = itemView.findViewById(R.id.productImage);
             productTitle = itemView.findViewById(R.id.product_title);
             productPrice = itemView.findViewById(R.id.product_price);
+            editDialog = itemView.findViewById(R.id.editDialog);
         }
     }
 }
