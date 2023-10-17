@@ -1,9 +1,12 @@
 package devandroid.frederico.cafexyz.ui.home.adapter;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -21,23 +24,32 @@ import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.data.ProductModel;
 import devandroid.frederico.cafexyz.ui.MainActivity;
 import devandroid.frederico.cafexyz.ui.cart.CartFragment;
+import devandroid.frederico.cafexyz.ui.cart.CartViewModel;
 import devandroid.frederico.cafexyz.ui.payment.PaymentFragment;
 
 
 public class HomeFragment extends Fragment implements RecycleViewInterface {
 
+    private CartViewModel cartViewModel;
     private NavController navController;
     private ArrayList<ProductModel> cartItems = new ArrayList<>();
     private ArrayList<ProductModel> productModelArrayList;
+
+    private BottomBarVisibilityListener bottomBarVisibilityListener;
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
 
+    public interface BottomBarVisibilityListener {
+        void setBottomBarVisibility(int visibility);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
     }
 
     @Override
@@ -72,13 +84,28 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
 
     private void addToCart(ProductModel productModel) {
         cartItems.add(productModel);
-        System.out.println(cartItems);
+        cartViewModel.setCartItems(cartItems);
         }
 
+
+
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof BottomBarVisibilityListener) {
+            bottomBarVisibilityListener = (BottomBarVisibilityListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement BottomBarVisibilityListener");
+        }
+    }
 
     @Override
     public void onItemClick(int position) {
         ProductModel productModel = productModelArrayList.get(position);
         addToCart(productModel);
+        if (bottomBarVisibilityListener != null) {
+            bottomBarVisibilityListener.setBottomBarVisibility(View.VISIBLE);
+        }
     }
 }

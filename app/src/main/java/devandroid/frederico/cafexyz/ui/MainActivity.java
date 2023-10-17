@@ -26,9 +26,19 @@ import devandroid.frederico.cafexyz.data.ProductModel;
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.ui.home.adapter.HomeFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HomeFragment.BottomBarVisibilityListener {
 
-
+    private View bottomBar;
+    private View bottomBar2;
+    private Animation fadeIn;
+    private Animation fadeOut;
+    @Override
+    public void setBottomBarVisibility(int visibility) {
+        if (bottomBar.getVisibility() != View.VISIBLE && visibility == View.VISIBLE) {
+            bottomBar.startAnimation(fadeIn);
+        }
+        bottomBar.setVisibility(visibility);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +53,10 @@ public class MainActivity extends AppCompatActivity {
         ImageView nextButton = findViewById(R.id.arrowBottom);
         ImageView nextButton2 = findViewById(R.id.arrowBottom2);
         ImageView cartBottom = findViewById(R.id.cartBottom);
-        View bottomBar = findViewById(R.id.bottomBar);
-        View bottomBar2 = findViewById(R.id.bottomBar2);
-        Animation fadeIn = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fade_in);
-        Animation fadeOut = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fade_out);
+        bottomBar = findViewById(R.id.bottomBar);
+        bottomBar2 = findViewById(R.id.bottomBar2);
+        fadeIn = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fade_in);
+        fadeOut = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fade_out);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMain);
         NavController navController = navHostFragment.getNavController();
@@ -55,9 +65,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 navController.navigate(R.id.cartFragment);
-
-
-
                 bottomBar.startAnimation(fadeOut);
                 bottomBar2.startAnimation(fadeIn);
                 bottomBar.setVisibility(View.GONE);
@@ -86,4 +93,5 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 }
