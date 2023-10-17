@@ -23,6 +23,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     private final ArrayList<ProductModel> productModelArrayList;
     private int[] clickCount;
 
+
     public CardAdapter(Context context, ArrayList<ProductModel> productModelArrayList, RecycleViewInterface recycleViewInterface) {
         this.context = context;
         this.productModelArrayList = productModelArrayList;
@@ -70,12 +71,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                 @Override
                 public void onClick(View view) {
                     if (recycleViewInterface != null) {
-                        int pos = getAdapterPosition();
+                        int position = getAdapterPosition();
                         qntBtn.setVisibility(View.VISIBLE);
-                        if(pos != RecyclerView.NO_POSITION) {
-                            clickCount[pos]++; // Increment the click count for this item
-                            qntBtn.setText(String.valueOf(clickCount[pos])); // Set the updated value
-                            recycleViewInterface.onItemClick(pos);
+                        if(position != RecyclerView.NO_POSITION) {
+                            clickCount[position]++;
+                            qntBtn.setText(String.valueOf(clickCount[position]));
+                            recycleViewInterface.onItemClick(position);
                         }
                     }
                 }

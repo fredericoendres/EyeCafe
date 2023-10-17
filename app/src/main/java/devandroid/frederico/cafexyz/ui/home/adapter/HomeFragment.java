@@ -20,12 +20,15 @@ import java.util.ArrayList;
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.data.ProductModel;
 import devandroid.frederico.cafexyz.ui.MainActivity;
+import devandroid.frederico.cafexyz.ui.cart.CartFragment;
 import devandroid.frederico.cafexyz.ui.payment.PaymentFragment;
 
 
 public class HomeFragment extends Fragment implements RecycleViewInterface {
 
     private NavController navController;
+    private ArrayList<ProductModel> cartItems = new ArrayList<>();
+    private ArrayList<ProductModel> productModelArrayList;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -56,7 +59,7 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
         });*/
 
 
-        ArrayList<ProductModel> productModelArrayList = new ArrayList<ProductModel>();
+        productModelArrayList = new ArrayList<ProductModel>();
         productModelArrayList.add(new ProductModel("Ovos com bacon", "R$ 25,00", R.drawable.ovos));
         productModelArrayList.add(new ProductModel("Kit café com waffle", "R$ 30,00", R.drawable.waffles));
 
@@ -67,8 +70,15 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
         return view;
     }
 
+    private void addToCart(ProductModel productModel) {
+        cartItems.add(productModel);
+        System.out.println(cartItems);
+        }
+
+
     @Override
     public void onItemClick(int position) {
-
+        ProductModel productModel = productModelArrayList.get(position);
+        addToCart(productModel);
     }
 }
