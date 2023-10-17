@@ -28,7 +28,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         this.context = context;
         this.productModelArrayList = productModelArrayList;
         this.recycleViewInterface = recycleViewInterface;
-        this.clickCount = new int[productModelArrayList.size()]; // Initialized here
+        this.clickCount = new int[productModelArrayList.size()];
     }
 
     @NonNull
@@ -42,19 +42,16 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull CardAdapter.ViewHolder holder, int position) {
         ProductModel model = productModelArrayList.get(position);
         holder.productTitle.setText(model.getProductTitle());
-        holder.productPrice.setText(model.getProductPrice());
+        double totalValue = model.getProductPrice();
+        holder.productPrice.setText(String.format("R$ %.2f", totalValue));
         holder.productImage.setImageResource(model.getProductImage());
     }
-
-    //usar condicional para dar gone na barra que separa os items
-    //utilizar transição
 
     @Override
     public int getItemCount() {
         return productModelArrayList.size();
     }
 
-// só funciona se eu remover o static do metodo, sei que não é recomendado, buscar contorno
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView productTitle;
         private final TextView productPrice;

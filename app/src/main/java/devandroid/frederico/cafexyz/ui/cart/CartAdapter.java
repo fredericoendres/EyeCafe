@@ -38,12 +38,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull CartAdapter.ViewHolder holder, int position) {
         ProductModel model = productModelArrayList.get(position);
         holder.productTitle.setText(model.getProductTitle());
-        holder.productPrice.setText(model.getProductPrice());
+        double totalValue = model.getProductPrice();
+        holder.productPrice.setText(String.format("R$ %.2f", totalValue));
         holder.productImage.setImageResource(model.getProductImage());
         holder.editDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Open the Dialog here
                 DeleteDialogFragment deleteDialogFragment = new DeleteDialogFragment();
                 deleteDialogFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), "delete_dialog");
             }

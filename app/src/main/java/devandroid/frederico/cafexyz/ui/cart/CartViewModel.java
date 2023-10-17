@@ -18,4 +18,17 @@ public class CartViewModel extends ViewModel {
         return cartItems;
     }
 
+    public double calculateTotalValue() {
+        double totalValue = 0;
+        for (ProductModel product : cartItems) {
+            try {
+                Double price = product.getProductPrice();
+                totalValue += price;
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+        return totalValue;
+    }
+
 }

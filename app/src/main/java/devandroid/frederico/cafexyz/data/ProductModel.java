@@ -1,12 +1,14 @@
 package devandroid.frederico.cafexyz.data;
 
+import java.math.BigDecimal;
+
 public class ProductModel {
 
     private String productTitle;
-    private String productPrice;
+    private Double productPrice;
     private int productImage;
 
-    public ProductModel(String productTitle, String productPrice, int productImage) {
+    public ProductModel(String productTitle, Double productPrice, int productImage) {
         this.productTitle = productTitle;
         this.productPrice = productPrice;
         this.productImage = productImage;
@@ -20,11 +22,11 @@ public class ProductModel {
         this.productTitle = productTitle;
     }
 
-    public String getProductPrice() {
+    public Double getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(String productPrice) {
+    public void setProductPrice(Double productPrice) {
         this.productPrice = productPrice;
     }
 
