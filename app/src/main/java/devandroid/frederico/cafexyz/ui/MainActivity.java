@@ -3,6 +3,7 @@ package devandroid.frederico.cafexyz.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -18,16 +19,18 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import devandroid.frederico.cafexyz.ui.cart.CartViewModel;
 import devandroid.frederico.cafexyz.ui.home.adapter.CardAdapter;
 import devandroid.frederico.cafexyz.data.ProductModel;
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.ui.home.adapter.HomeFragment;
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.BottomBarVisibilityListener {
-
+    private CartViewModel cartViewModel;
     private View bottomBar;
     private View bottomBar2;
     private Animation fadeIn;
@@ -49,6 +52,10 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.marrom));
         }*/
+        cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
+        TextView totalValueTextView = findViewById(R.id.totalBottom);
+        double totalValue = cartViewModel.calculateTotalValue();
+        totalValueTextView.setText(String.format("R$ %.2f", totalValue));
 
         ImageView nextButton = findViewById(R.id.arrowBottom);
         ImageView nextButton2 = findViewById(R.id.arrowBottom2);

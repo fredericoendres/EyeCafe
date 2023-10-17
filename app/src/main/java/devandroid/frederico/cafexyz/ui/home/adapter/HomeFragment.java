@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -69,7 +70,6 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
                 navController.navigate(R.id.cartFragment);
             }
         });*/
-
 
         productModelArrayList = new ArrayList<ProductModel>();
         productModelArrayList.add(new ProductModel("Ovos com bacon", "R$ 25,00", R.drawable.ovos));
