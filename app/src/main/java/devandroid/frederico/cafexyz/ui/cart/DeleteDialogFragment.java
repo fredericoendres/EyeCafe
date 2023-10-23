@@ -1,20 +1,56 @@
 package devandroid.frederico.cafexyz.ui.cart;
 
-import android.os.Bundle;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
-import androidx.fragment.app.DialogFragment;
+import androidx.navigation.NavController;
 
 import devandroid.frederico.cafexyz.R;
 
-public class DeleteDialogFragment extends DialogFragment {
+public class DeleteDialogFragment extends PopupWindow {
+    private NavController navController;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.delete_layout, container, false);
+    public DeleteDialogFragment(Context context) {
+        super(context);
+        View view = LayoutInflater.from(context).inflate(R.layout.delete_layout, null);
+        setContentView(view);
+        int width = context.getResources().getDimensionPixelSize(R.dimen.popup_width);
+        int height = context.getResources().getDimensionPixelSize(R.dimen.popup_height);
+        setWidth(width);
+        setHeight(height);
+        setFocusable(true);
+        setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView editTextView = view.findViewById(R.id.editProduct);
+        editTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (navController != null) {
+                    navController.navigate(R.id.editFragment);
+                }
+                dismiss();
+            }
+        });
     }
 
+    public void setNavController(NavController navController) {
+        this.navController = navController;
+    }
+
+    public void showPopupWindow(View anchor) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int[] location = new int[2];
+            anchor.getLocationOnScreen(location);
+            showAtLocation(anchor, Gravity.NO_GRAVITY, location[0], location[1] - getHeight());
+        } else {
+            showAsDropDown(anchor);
+        }
+    }
 }
