@@ -22,7 +22,8 @@ public class CartViewModel extends ViewModel {
         double totalValue = 0;
         for (ProductModel product : cartItems) {
             try {
-                Double price = product.getProductPrice();
+                String priceString = product.getProductPrice().replaceAll("[^\\d.]", "");
+                double price = Double.parseDouble(priceString.replace(",", "."));
                 totalValue += price;
             } catch (NumberFormatException e) {
                 e.printStackTrace();
