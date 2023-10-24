@@ -37,7 +37,6 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
         // Required empty public constructor
     }
 
-
     public interface BottomBarVisibilityListener {
         void setBottomBarVisibility(int visibility);
     }
@@ -68,7 +67,7 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
     private void addToCart(ProductModel productModel) {
         cartItems.add(productModel);
         cartViewModel.setCartItems(cartItems);
-        }
+    }
 
 
 

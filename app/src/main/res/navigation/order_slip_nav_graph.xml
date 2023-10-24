@@ -16,6 +16,10 @@
         android:id="@+id/cartFragment"
         android:name="devandroid.frederico.cafexyz.ui.cart.CartFragment"
         android:label="CartFragment" />
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="devandroid.frederico.cafexyz.ui.cart.EditFragment"
+        android:label="EditFragment" />
 
 
 </navigation>

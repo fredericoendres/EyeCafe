@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     private final Context context;
     private final ArrayList<ProductModel> productModelArrayList;
+
 
     public CartAdapter(Context context, ArrayList<ProductModel> productModelArrayList) {
         this.context = context;
@@ -44,8 +47,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.editDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DeleteDialogFragment deleteDialogFragment = new DeleteDialogFragment();
-                deleteDialogFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), "delete_dialog");
+                NavHostFragment navHostFragment = (NavHostFragment) ((AppCompatActivity) context).getSupportFragmentManager().findFragmentById(R.id.fragmentMain);
+                NavController navController = navHostFragment.getNavController();
+
+                DeleteDialogFragment deleteDialogFragment = new DeleteDialogFragment(context);
+                deleteDialogFragment.setNavController(navController); // Set the NavController in the DeleteDialogFragment
+                deleteDialogFragment.showPopupWindow(v);
             }
         });
     }
