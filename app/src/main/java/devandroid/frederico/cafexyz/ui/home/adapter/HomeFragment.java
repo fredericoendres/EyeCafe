@@ -77,5 +77,6 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
         if (bottomBarVisibilityListener != null) {
             bottomBarVisibilityListener.setBottomBarVisibility(View.VISIBLE);
         }
+        sharedViewModel.notifyCartUpdate();
     }
 }

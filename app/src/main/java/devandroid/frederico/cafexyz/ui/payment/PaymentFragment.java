@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
@@ -53,12 +55,22 @@ public class PaymentFragment extends Fragment {
         TextView valueTextView = view.findViewById(R.id.value_text);
         View midBar0 = view.findViewById(R.id.mid_bar0);
         Button btnDiscount = view.findViewById(R.id.btn_discount);
+        Button btnFinalizar = view.findViewById(R.id.btn_finalizar);
 
         btnDiscount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DiscountFragment dialogFragment = new DiscountFragment();
                 dialogFragment.show(getParentFragmentManager(), "CustomDialog");
+            }
+        });
+
+        btnFinalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sharedViewModel.finalizarVenda();
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentMain);
+                navController.navigate(R.id.homeFragment);
             }
         });
 

@@ -16,7 +16,7 @@ import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.ui.home.adapter.HomeFragment;
 
-public class MainActivity extends AppCompatActivity implements HomeFragment.BottomBarVisibilityListener {
+public class MainActivity extends AppCompatActivity implements HomeFragment.BottomBarVisibilityListener, SharedViewModel.CartListener {
     private SharedViewModel sharedViewModel;
     private View bottomBar;
     private View bottomBar2;
@@ -29,20 +29,25 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
         }
         bottomBar.setVisibility(visibility);
     }
+
+    @Override
+    public void onCartUpdated(double totalValue) {
+        TextView totalValueTextView = findViewById(R.id.totalBottom);
+        totalValueTextView.setText(String.format("R$ %.2f", totalValue));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
-        TextView totalValueTextView = findViewById(R.id.totalBottom);
-        double totalValue = sharedViewModel.calculateTotalValue();
-        totalValueTextView.setText(String.format("R$ %.2f", totalValue));
-
+        sharedViewModel.setCartListener(this);
 
         ImageView nextButton = findViewById(R.id.arrowBottom);
         ImageView nextButton2 = findViewById(R.id.arrowBottom2);
         ImageView cartBottom = findViewById(R.id.cartBottom);
+        TextView totalBottom2 = findViewById(R.id.totalBottom2);
         bottomBar = findViewById(R.id.bottomBar);
         bottomBar2 = findViewById(R.id.bottomBar2);
         fadeIn = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fade_in);
@@ -50,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMain);
         NavController navController = navHostFragment.getNavController();
+
 
         cartBottom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,11 +70,13 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Double totalValue = sharedViewModel.calculateTotalValue();
                 navController.navigate(R.id.cartFragment);
                 bottomBar.startAnimation(fadeOut);
                 bottomBar2.startAnimation(fadeIn);
                 bottomBar.setVisibility(View.GONE);
                 bottomBar2.setVisibility(View.VISIBLE);
+                totalBottom2.setText(String.format("R$ %.2f", totalValue));
             }
         });
 
@@ -83,5 +91,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
 
 
     }
+
 
 }

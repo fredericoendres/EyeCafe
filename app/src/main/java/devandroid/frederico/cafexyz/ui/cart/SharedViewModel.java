@@ -18,6 +18,27 @@ public class SharedViewModel extends ViewModel {
         return cartItems;
     }
 
+    private CartListener cartListener;
+
+    public void setCartListener(CartListener listener) {
+        this.cartListener = listener;
+    }
+
+    public void finalizarVenda() {
+        cartItems.clear();
+        notifyCartUpdate();
+    }
+
+    public void notifyCartUpdate() {
+        if (cartListener != null) {
+            cartListener.onCartUpdated(calculateTotalValue());
+        }
+    }
+
+    public interface CartListener {
+        void onCartUpdated(double totalValue);
+    }
+
     public void addToCart(ProductModel productModel) {
         cartItems.add(productModel);
     }
