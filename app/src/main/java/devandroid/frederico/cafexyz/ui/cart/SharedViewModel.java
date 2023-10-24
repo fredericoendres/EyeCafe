@@ -8,6 +8,16 @@ import devandroid.frederico.cafexyz.data.ProductModel;
 
 public class SharedViewModel extends ViewModel {
 
+    public int getClickCount() {
+        return clickCount;
+    }
+
+    public void setClickCount(int clickCount) {
+        this.clickCount = clickCount;
+    }
+
+    private int clickCount = 0;
+
     private ArrayList<ProductModel> cartItems = new ArrayList<>();
 
     public void setCartItems(ArrayList<ProductModel> cartItems) {
@@ -38,6 +48,8 @@ public class SharedViewModel extends ViewModel {
     public interface CartListener {
         void onCartUpdated(double totalValue);
     }
+
+
 
     public void addToCart(ProductModel productModel) {
         cartItems.add(productModel);

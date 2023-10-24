@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import devandroid.frederico.cafexyz.data.ProductModel;
 import devandroid.frederico.cafexyz.R;
+import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
@@ -23,9 +24,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     private final ArrayList<ProductModel> productModelArrayList;
     private int[] clickCount;
 
+    private SharedViewModel sharedViewModel;
 
-    public CardAdapter(Context context, ArrayList<ProductModel> productModelArrayList, RecycleViewInterface recycleViewInterface) {
+
+
+    public CardAdapter(Context context, ArrayList<ProductModel> productModelArrayList, RecycleViewInterface recycleViewInterface, SharedViewModel sharedViewModel) {
         this.context = context;
+        this.sharedViewModel = sharedViewModel;
         this.productModelArrayList = productModelArrayList;
         this.recycleViewInterface = recycleViewInterface;
         this.clickCount = new int[productModelArrayList.size()];
@@ -72,8 +77,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                         qntBtn.setVisibility(View.VISIBLE);
                         if(position != RecyclerView.NO_POSITION) {
                             clickCount[position]++;
+                            ProductModel productModel = productModelArrayList.get(position);
                             qntBtn.setText(String.valueOf(clickCount[position]));
-                            recycleViewInterface.onItemClick(position);
+                            recycleViewInterface.onItemClick(productModel);
+                            sharedViewModel.addToCart(productModel);
+                            sharedViewModel.notifyCartUpdate();
                         }
                     }
                 }

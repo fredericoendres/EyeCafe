@@ -3,14 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lancamento_layout"
-    android:layout_width="340dp"
-    android:layout_height="597dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="@drawable/round_background"
     android:elevation="10dp"
     android:paddingHorizontal="18dp"
-    android:paddingBottom="30dp">
-
+    android:paddingBottom="30dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent">
 
     <TextView
         android:id="@+id/title_lancamento"
@@ -22,7 +31,8 @@
         android:text="Percentual do desconto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/discount_value"/>
 
     <TextView
         android:id="@+id/discount_value"
@@ -34,6 +44,7 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/qnt_sub1"
         app:layout_constraintTop_toBottomOf="@+id/title_lancamento" />
 
     <Button
@@ -156,6 +167,7 @@
         android:layout_marginBottom="9dp"
         android:background="@drawable/round"
         android:backgroundTint="@color/marrom_light"
+        android:layout_marginHorizontal="8dp"
         android:text="2"
         android:textColor="@color/marrom"
         app:layout_constraintBottom_toTopOf="@+id/qnt_sub5"
@@ -227,4 +239,8 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+

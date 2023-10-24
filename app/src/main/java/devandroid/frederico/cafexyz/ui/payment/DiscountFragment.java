@@ -10,6 +10,7 @@ import android.view.Window;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
 import devandroid.frederico.cafexyz.R;
@@ -30,10 +31,15 @@ public class DiscountFragment extends DialogFragment {
         if (dialog != null) {
             Window window = dialog.getWindow();
             if (window != null) {
-                window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                window.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.color.transparent));
             }
         }
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setStyle(STYLE_NORMAL, R.style.DialogFragmentTheme);
+        super.onCreate(savedInstanceState);
+    }
 }
 

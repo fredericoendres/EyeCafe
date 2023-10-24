@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -34,6 +35,7 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
         void setBottomBarVisibility(int visibility);
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +52,7 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
         productModelArrayList.add(new ProductModel("Ovos com bacon", 25.00, R.drawable.ovos));
         productModelArrayList.add(new ProductModel("Kit café com waffle", 30.00, R.drawable.waffles));
 
-        CardAdapter courseAdapter = new CardAdapter(getContext(), productModelArrayList, this);
+        CardAdapter courseAdapter = new CardAdapter(getContext(), productModelArrayList, this, sharedViewModel);
 
         productRecycle.setAdapter(courseAdapter);
 
@@ -71,12 +73,9 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
     }
 
     @Override
-    public void onItemClick(int position) {
-        ProductModel productModel = productModelArrayList.get(position);
-        sharedViewModel.addToCart(productModel);
+    public void onItemClick(ProductModel productModel) {
         if (bottomBarVisibilityListener != null) {
             bottomBarVisibilityListener.setBottomBarVisibility(View.VISIBLE);
         }
-        sharedViewModel.notifyCartUpdate();
     }
 }
