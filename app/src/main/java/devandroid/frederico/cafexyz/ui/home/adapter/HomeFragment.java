@@ -11,24 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.data.ProductModel;
-import devandroid.frederico.cafexyz.ui.MainActivity;
-import devandroid.frederico.cafexyz.ui.cart.CartFragment;
-import devandroid.frederico.cafexyz.ui.cart.CartViewModel;
-import devandroid.frederico.cafexyz.ui.payment.PaymentFragment;
+import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
 
 
 public class HomeFragment extends Fragment implements RecycleViewInterface {
 
-    private CartViewModel cartViewModel;
-    private ArrayList<ProductModel> cartItems = new ArrayList<>();
+    private SharedViewModel sharedViewModel;
     private ArrayList<ProductModel> productModelArrayList;
 
     private BottomBarVisibilityListener bottomBarVisibilityListener;
@@ -44,12 +37,12 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         RecyclerView productRecycle = view.findViewById(R.id.product_recycle);
 
@@ -62,11 +55,6 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
         productRecycle.setAdapter(courseAdapter);
 
         return view;
-    }
-
-    private void addToCart(ProductModel productModel) {
-        cartItems.add(productModel);
-        cartViewModel.setCartItems(cartItems);
     }
 
 
@@ -85,7 +73,7 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
     @Override
     public void onItemClick(int position) {
         ProductModel productModel = productModelArrayList.get(position);
-        addToCart(productModel);
+        sharedViewModel.addToCart(productModel);
         if (bottomBarVisibilityListener != null) {
             bottomBarVisibilityListener.setBottomBarVisibility(View.VISIBLE);
         }

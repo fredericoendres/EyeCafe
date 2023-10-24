@@ -1,36 +1,23 @@
 package devandroid.frederico.cafexyz.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
-import devandroid.frederico.cafexyz.ui.cart.CartViewModel;
-import devandroid.frederico.cafexyz.ui.home.adapter.CardAdapter;
-import devandroid.frederico.cafexyz.data.ProductModel;
+import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.ui.home.adapter.HomeFragment;
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.BottomBarVisibilityListener {
-    private CartViewModel cartViewModel;
+    private SharedViewModel sharedViewModel;
     private View bottomBar;
     private View bottomBar2;
     private Animation fadeIn;
@@ -47,10 +34,11 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
+        sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
         TextView totalValueTextView = findViewById(R.id.totalBottom);
-        double totalValue = cartViewModel.calculateTotalValue();
+        double totalValue = sharedViewModel.calculateTotalValue();
         totalValueTextView.setText(String.format("R$ %.2f", totalValue));
+
 
         ImageView nextButton = findViewById(R.id.arrowBottom);
         ImageView nextButton2 = findViewById(R.id.arrowBottom2);

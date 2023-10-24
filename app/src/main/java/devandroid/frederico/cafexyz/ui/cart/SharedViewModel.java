@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import devandroid.frederico.cafexyz.data.ProductModel;
 
-public class CartViewModel extends ViewModel {
+public class SharedViewModel extends ViewModel {
 
     private ArrayList<ProductModel> cartItems = new ArrayList<>();
 
@@ -16,6 +16,10 @@ public class CartViewModel extends ViewModel {
 
     public ArrayList<ProductModel> getCartItems() {
         return cartItems;
+    }
+
+    public void addToCart(ProductModel productModel) {
+        cartItems.add(productModel);
     }
 
     public double calculateTotalValue() {

@@ -13,17 +13,16 @@ import java.util.ArrayList;
 
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.data.ProductModel;
-import devandroid.frederico.cafexyz.ui.home.adapter.CardAdapter;
 
 public class CartFragment extends Fragment {
 
     public CartFragment() {}
-    private CartViewModel cartViewModel;
+    private SharedViewModel sharedViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
     }
 
     @Override
@@ -32,7 +31,7 @@ public class CartFragment extends Fragment {
         View view = inflater.inflate(R.layout.cart_fragment, container, false);
         RecyclerView cartRecycle = view.findViewById(R.id.cart_recycle);
 
-        ArrayList<ProductModel> cartItems = cartViewModel.getCartItems();
+        ArrayList<ProductModel> cartItems = sharedViewModel.getCartItems();
 
         CartAdapter cartAdapter = new CartAdapter(getContext(), cartItems);
         cartRecycle.setAdapter(cartAdapter);
