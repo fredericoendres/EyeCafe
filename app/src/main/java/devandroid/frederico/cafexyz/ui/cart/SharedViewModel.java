@@ -68,4 +68,19 @@ public class SharedViewModel extends ViewModel {
         return totalValue;
     }
 
+
+    public int productCount(String productTitle) {
+        int count = 1;
+        for (ProductModel product : cartItems) {
+            if (product.getProductTitle().equals(productTitle)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int cartSize() {
+        return cartItems.size();
+    }
+
 }

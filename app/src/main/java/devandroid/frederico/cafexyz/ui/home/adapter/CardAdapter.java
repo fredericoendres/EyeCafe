@@ -76,9 +76,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                         int position = getAdapterPosition();
                         qntBtn.setVisibility(View.VISIBLE);
                         if(position != RecyclerView.NO_POSITION) {
-                            clickCount[position]++;
                             ProductModel productModel = productModelArrayList.get(position);
-                            qntBtn.setText(String.valueOf(clickCount[position]));
+                            qntBtn.setText(String.valueOf(sharedViewModel.productCount(productModel.getProductTitle())));
                             recycleViewInterface.onItemClick(productModel);
                             sharedViewModel.addToCart(productModel);
                             sharedViewModel.notifyCartUpdate();
