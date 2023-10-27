@@ -34,7 +34,12 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
     public void onCartUpdated(double totalValue) {
         TextView totalValueTextView = findViewById(R.id.totalBottom);
         totalValueTextView.setText(String.format("R$ %.2f", totalValue));
+        int cartSize = sharedViewModel.cartSize();
+        TextView itemCount = findViewById(R.id.itemTotal);
+        itemCount.setText(String.format("%d items", cartSize));
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
         ImageView nextButton2 = findViewById(R.id.arrowBottom2);
         ImageView cartBottom = findViewById(R.id.cartBottom);
         TextView totalBottom2 = findViewById(R.id.totalBottom2);
-        TextView itemCount2 = findViewById(R.id.itemTotal2);
+        TextView itemCount = findViewById(R.id.itemTotal);
         bottomBar = findViewById(R.id.bottomBar);
         bottomBar2 = findViewById(R.id.bottomBar2);
         fadeIn = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fade_in);
@@ -79,8 +84,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
                 bottomBar.setVisibility(View.GONE);
                 bottomBar2.setVisibility(View.VISIBLE);
                 totalBottom2.setText(String.format("R$ %.2f", totalValue));
-                itemCount2.setText(String.format("itens", cartSize));
-
+                itemCount.setText(String.format("%d items", cartSize));
             }
         });
 

@@ -52,6 +52,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         holder.productImage.setImageResource(model.getProductImage());
     }
 
+
     @Override
     public int getItemCount() {
         return productModelArrayList.size();

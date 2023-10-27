@@ -51,7 +51,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 NavController navController = navHostFragment.getNavController();
 
                 DeleteDialogFragment deleteDialogFragment = new DeleteDialogFragment(context);
-                deleteDialogFragment.setNavController(navController); // Set the NavController in the DeleteDialogFragment
+                deleteDialogFragment.setNavController(navController);
                 deleteDialogFragment.showPopupWindow(v);
             }
         });
