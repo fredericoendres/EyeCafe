@@ -50,9 +50,6 @@ public class DeleteDialogFragment extends PopupWindow {
         deleteTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sharedViewModel.deleteItem(productModel);
-                dismiss();
-
                 int position = sharedViewModel.getCartItems().indexOf(productModel);
                 if (position != -1) {
                     sharedViewModel.getCartItems().remove(productModel);
@@ -62,6 +59,7 @@ public class DeleteDialogFragment extends PopupWindow {
                         cartAdapter.notifyDataSetChanged();
                     }
                 }
+                dismiss();
             }
         });
     }
