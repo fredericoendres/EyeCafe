@@ -33,7 +33,7 @@ public class CartFragment extends Fragment {
 
         ArrayList<ProductModel> cartItems = sharedViewModel.getCartItems();
 
-        CartAdapter cartAdapter = new CartAdapter(getContext(), cartItems);
+        CartAdapter cartAdapter = new CartAdapter(getContext(), sharedViewModel);
         cartRecycle.setAdapter(cartAdapter);
 
         return view;

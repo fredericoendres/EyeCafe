@@ -13,12 +13,19 @@ import android.widget.TextView;
 import androidx.navigation.NavController;
 
 import devandroid.frederico.cafexyz.R;
+import devandroid.frederico.cafexyz.data.ProductModel;
 
 public class DeleteDialogFragment extends PopupWindow {
     private NavController navController;
+    private SharedViewModel sharedViewModel;
+    private CartAdapter cartAdapter;
+    private ProductModel productModel;
 
-    public DeleteDialogFragment(Context context) {
+    public DeleteDialogFragment(Context context, SharedViewModel sharedViewModel, ProductModel productModel, CartAdapter cartAdapter) {
         super(context);
+        this.sharedViewModel = sharedViewModel;
+        this.productModel = productModel;
+        this.cartAdapter = cartAdapter;
         View view = LayoutInflater.from(context).inflate(R.layout.delete_layout, null);
         setContentView(view);
         int width = context.getResources().getDimensionPixelSize(R.dimen.popup_width);
@@ -29,6 +36,7 @@ public class DeleteDialogFragment extends PopupWindow {
         setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         TextView editTextView = view.findViewById(R.id.editProduct);
+        TextView deleteTextView = view.findViewById(R.id.deleteProduct);
         editTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,6 +44,24 @@ public class DeleteDialogFragment extends PopupWindow {
                     navController.navigate(R.id.editFragment);
                 }
                 dismiss();
+            }
+        });
+
+        deleteTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sharedViewModel.deleteItem(productModel);
+                dismiss();
+
+                int position = sharedViewModel.getCartItems().indexOf(productModel);
+                if (position != -1) {
+                    sharedViewModel.getCartItems().remove(productModel);
+                    if (position < cartAdapter.getItemCount()) {
+                        cartAdapter.notifyItemRemoved(position);
+                    } else {
+                        cartAdapter.notifyDataSetChanged();
+                    }
+                }
             }
         });
     }

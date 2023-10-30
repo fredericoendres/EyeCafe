@@ -22,12 +22,12 @@ import devandroid.frederico.cafexyz.ui.home.adapter.CardAdapter;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     private final Context context;
-    private final ArrayList<ProductModel> productModelArrayList;
+    private final SharedViewModel sharedViewModel;
 
 
-    public CartAdapter(Context context, ArrayList<ProductModel> productModelArrayList) {
+    public CartAdapter(Context context, SharedViewModel sharedViewModel) {
         this.context = context;
-        this.productModelArrayList = productModelArrayList;
+        this.sharedViewModel = sharedViewModel;
     }
 
     @NonNull
@@ -39,7 +39,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CartAdapter.ViewHolder holder, int position) {
-        ProductModel model = productModelArrayList.get(position);
+        ProductModel model = sharedViewModel.getCartItems().get(position);
         holder.productTitle.setText(model.getProductTitle());
         double totalValue = model.getProductPrice();
         holder.productPrice.setText(String.format("R$ %.2f", totalValue));
@@ -50,7 +50,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 NavHostFragment navHostFragment = (NavHostFragment) ((AppCompatActivity) context).getSupportFragmentManager().findFragmentById(R.id.fragmentMain);
                 NavController navController = navHostFragment.getNavController();
 
-                DeleteDialogFragment deleteDialogFragment = new DeleteDialogFragment(context);
+                DeleteDialogFragment deleteDialogFragment = new DeleteDialogFragment(context, sharedViewModel, model, CartAdapter.this);
                 deleteDialogFragment.setNavController(navController);
                 deleteDialogFragment.showPopupWindow(v);
             }
@@ -59,7 +59,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return productModelArrayList.size();
+        return sharedViewModel.cartSize();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
