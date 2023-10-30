@@ -83,7 +83,7 @@ public class SharedViewModel extends ViewModel {
         return cartItems.size();
     }
 
-
+//teste
     public void deleteItem(ProductModel productModel) {
         cartItems.remove(productModel);
         notifyCartUpdate();
