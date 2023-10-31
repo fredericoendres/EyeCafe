@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
                              Bundle savedInstanceState) {
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         View view = inflater.inflate(R.layout.home_fragment, container, false);
-        RecyclerView productRecycle = view.findViewById(R.id.product_recycle);
+        RecyclerView productRecycle = view.findViewById(R.id.product_recycle); // Refatorar com ViewBinding
 
         productModelArrayList = new ArrayList<ProductModel>();
         productModelArrayList.add(new ProductModel("Ovos com bacon", 25.00, R.drawable.ovos));
@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
     }
 
     @Override
-    public void onItemClick(ProductModel productModel) {
+    public void bottomBarVisibility() {
         if (bottomBarVisibilityListener != null) {
             bottomBarVisibilityListener.setBottomBarVisibility(View.VISIBLE);
         }

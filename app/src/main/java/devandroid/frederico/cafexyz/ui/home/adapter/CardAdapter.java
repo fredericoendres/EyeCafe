@@ -79,7 +79,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                         if(position != RecyclerView.NO_POSITION) {
                             ProductModel productModel = productModelArrayList.get(position);
                             qntBtn.setText(String.valueOf(sharedViewModel.productCount(productModel.getProductTitle())));
-                            recycleViewInterface.onItemClick(productModel);
+                            recycleViewInterface.bottomBarVisibility();
                             sharedViewModel.addToCart(productModel);
                             sharedViewModel.notifyCartUpdate();
                         }

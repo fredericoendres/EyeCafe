@@ -18,6 +18,9 @@ public class SharedViewModel extends ViewModel {
 
     private int clickCount = 0;
 
+    private double totalValue = 0;
+    private double discountAmount = 0;
+
     private ArrayList<ProductModel> cartItems = new ArrayList<>();
 
     public void setCartItems(ArrayList<ProductModel> cartItems) {
@@ -37,6 +40,23 @@ public class SharedViewModel extends ViewModel {
     public void finalizarVenda() {
         cartItems.clear();
         notifyCartUpdate();
+    }
+
+    public void applyDiscount(double discount) {
+        this.discountAmount = discount;
+        notifyTotalValueUpdate();
+    }
+
+    public void notifyTotalValueUpdate() {
+        if (cartListener != null) {
+            cartListener.onCartUpdated(calculateDiscountedTotalValue());
+        }
+    }
+
+    public double calculateDiscountedTotalValue() {
+        totalValue = calculateTotalValue();
+        double discountedValue = totalValue - (totalValue * discountAmount / 100);
+        return discountedValue;
     }
 
     public void notifyCartUpdate() {
@@ -83,7 +103,7 @@ public class SharedViewModel extends ViewModel {
         return cartItems.size();
     }
 
-//teste
+
     public void deleteItem(ProductModel productModel) {
         cartItems.remove(productModel);
         notifyCartUpdate();

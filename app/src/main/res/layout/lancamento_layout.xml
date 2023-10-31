@@ -105,7 +105,7 @@
         app:layout_constraintStart_toEndOf="@+id/qnt_counter" />
 
     <Button
-        android:id="@+id/qnt_sub"
+        android:id="@+id/qnt_sub_limpar"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_marginEnd="5dp"

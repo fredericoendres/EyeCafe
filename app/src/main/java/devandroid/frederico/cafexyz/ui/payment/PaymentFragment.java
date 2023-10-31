@@ -24,6 +24,9 @@ import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
 public class PaymentFragment extends Fragment {
 
     private SharedViewModel sharedViewModel;
+    double totalValue;
+    private TextView totalValueTextView;
+    PaymentFragment paymentFragment = this;
 
     public PaymentFragment() {
     }
@@ -40,7 +43,7 @@ public class PaymentFragment extends Fragment {
         View view = inflater.inflate(R.layout.payment_fragment, container, false);
 
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
-        TextView totalValueTextView = view.findViewById(R.id.total_value);
+        totalValueTextView = view.findViewById(R.id.total_value);
         double totalValue = sharedViewModel.calculateTotalValue();
         totalValueTextView.setText(String.format("R$ %.2f", totalValue));
         return view;
@@ -60,7 +63,7 @@ public class PaymentFragment extends Fragment {
         btnDiscount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DiscountFragment dialogFragment = new DiscountFragment();
+                DiscountFragment dialogFragment = new DiscountFragment(paymentFragment);
                 dialogFragment.show(getParentFragmentManager(), "CustomDialog");
             }
         });
@@ -82,6 +85,9 @@ public class PaymentFragment extends Fragment {
                 constraintLayout2.getLayoutParams().height = convertDpToPixel(133, requireContext());
                 valueTextView.setVisibility(View.VISIBLE);
                 valueTextView.setText(String.format("R$ %.2f", sharedViewModel.calculateTotalValue()));
+                if (sharedViewModel.calculateDiscountedTotalValue() > 0) {
+                    valueTextView.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
+                }
                 midBar0.setVisibility(View.VISIBLE);
             }
         });
@@ -97,6 +103,18 @@ public class PaymentFragment extends Fragment {
             }
         });
     }
+
+    public void updateTotalValueTextView() {
+        if (totalValueTextView != null) {
+            double totalValue = sharedViewModel.calculateTotalValue();
+            if (sharedViewModel.calculateDiscountedTotalValue() > 0) {
+                totalValueTextView.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
+            } else {
+                totalValueTextView.setText(String.format("R$ %.2f", totalValue));
+            }
+        }
+    }
+
     private int convertDpToPixel(float dp, Context context) {
         return (int) (dp * context.getResources().getDisplayMetrics().density);
     }
