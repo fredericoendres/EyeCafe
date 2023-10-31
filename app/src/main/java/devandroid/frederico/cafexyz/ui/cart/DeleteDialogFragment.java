@@ -10,10 +10,12 @@ import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavController;
 
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.data.ProductModel;
+import devandroid.frederico.cafexyz.ui.home.adapter.LancamentoDialogFragment;
 
 public class DeleteDialogFragment extends PopupWindow {
     private NavController navController;
@@ -37,30 +39,23 @@ public class DeleteDialogFragment extends PopupWindow {
 
         TextView editTextView = view.findViewById(R.id.editProduct);
         TextView deleteTextView = view.findViewById(R.id.deleteProduct);
-        editTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (navController != null) {
-                    navController.navigate(R.id.editFragment);
-                }
-                dismiss();
-            }
+        editTextView.setOnClickListener(v -> {
+            EditFragment editFragment = new EditFragment();
+            editFragment.show(((FragmentActivity) context).getSupportFragmentManager(), "EditDialogFragment");
+            dismiss();
         });
 
-        deleteTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int position = sharedViewModel.getCartItems().indexOf(productModel);
-                if (position != -1) {
-                    sharedViewModel.getCartItems().remove(productModel);
-                    if (position < cartAdapter.getItemCount()) {
-                        cartAdapter.notifyItemRemoved(position);
-                    } else {
-                        cartAdapter.notifyDataSetChanged();
-                    }
+        deleteTextView.setOnClickListener(view1 -> {
+            int position = sharedViewModel.getCartItems().indexOf(productModel);
+            if (position != -1) {
+                sharedViewModel.getCartItems().remove(productModel);
+                if (position < cartAdapter.getItemCount()) {
+                    cartAdapter.notifyItemRemoved(position);
+                } else {
+                    cartAdapter.notifyDataSetChanged();
                 }
-                dismiss();
             }
+            dismiss();
         });
     }
 

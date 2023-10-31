@@ -2,110 +2,120 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/edit_layout"
-    android:layout_width="300dp"
-    android:layout_height="338dp"
-    android:layout_gravity="center"
-    android:background="@drawable/round_background"
-    android:elevation="10dp"
-    android:paddingTop="20dp"
-    android:paddingHorizontal="24dp"
-    android:paddingBottom="51dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent">
 
-    <TextView
-        android:id="@+id/title_edit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:gravity="top"
-        android:text="@string/edit_title"
-        style="@style/MainTitle"
-        app:layout_constraintBottom_toTopOf="@+id/shapeableImageView"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/edit_layout"
+        android:layout_width="300dp"
+        android:layout_height="338dp"
+        android:layout_gravity="center"
+        android:background="@drawable/round_background"
+        android:elevation="10dp"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="51dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/shapeableImageView"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ovos"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/observation_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
+        <TextView
+            android:id="@+id/title_edit"
+            style="@style/MainTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:gravity="top"
+            android:text="@string/edit_title"
+            app:layout_constraintBottom_toTopOf="@+id/shapeableImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/product_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="10dp"
-        style="@style/SmallText"
-        android:text="@string/product_placeholder"
-        android:textAlignment="textStart"
-        app:layout_constraintBottom_toTopOf="@+id/product_price"
-        app:layout_constraintStart_toEndOf="@+id/shapeableImageView"
-        app:layout_constraintTop_toBottomOf="@+id/title_edit" />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/shapeableImageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="32dp"
+            android:src="@drawable/ovos"
+            app:layout_constraintBottom_toTopOf="@+id/observation_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
 
-    <TextView
-        android:id="@+id/product_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginBottom="32dp"
-        android:text="@string/price_placeholder"
-        android:textAlignment="textStart"
-        style="@style/MediumBold"
-        app:layout_constraintBottom_toTopOf="@+id/observation_text"
-        app:layout_constraintStart_toEndOf="@+id/shapeableImageView" />
+        <TextView
+            android:id="@+id/product_title"
+            style="@style/SmallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/product_placeholder"
+            android:textAlignment="textStart"
+            app:layout_constraintBottom_toTopOf="@+id/product_price"
+            app:layout_constraintStart_toEndOf="@+id/shapeableImageView"
+            app:layout_constraintTop_toBottomOf="@+id/title_edit" />
+
+        <TextView
+            android:id="@+id/product_price"
+            style="@style/MediumBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="32dp"
+            android:text="@string/price_placeholder"
+            android:textAlignment="textStart"
+            app:layout_constraintBottom_toTopOf="@+id/observation_text"
+            app:layout_constraintStart_toEndOf="@+id/shapeableImageView" />
 
 
-    <TextView
-        android:id="@+id/observation_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:text="Observação"
-        style="@style/SmallBold"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/observation_text"
+            style="@style/SmallBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Observação"
+            app:layout_constraintBottom_toTopOf="@+id/editText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/round_background"
-        android:backgroundTint="@color/marrom_light"
-        android:padding="16dp"
-        style="@style/SmallText"
-        app:layout_constraintBottom_toTopOf="@+id/btn_ok"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <EditText
+            android:id="@+id/editText"
+            style="@style/SmallText"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/round_background"
+            android:backgroundTint="@color/marrom_light"
+            android:padding="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_ok"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/btn_cancelar"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:background="@drawable/round_background"
-        android:backgroundTint="@color/marrom_light"
-        android:text="@string/voltar_text"
-        style="@style/SmallBold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/btn_cancelar"
+            style="@style/SmallBold"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_background"
+            android:backgroundTint="@color/marrom_light"
+            android:text="@string/voltar_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/btn_ok"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:background="@drawable/round_background"
-        android:backgroundTint="@color/marrom"
-        android:text="@string/adicionar_text"
-        android:textColor="@color/white"
-        style="@style/SmallBold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <Button
+            android:id="@+id/btn_ok"
+            style="@style/SmallBold"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_background"
+            android:backgroundTint="@color/marrom"
+            android:text="@string/adicionar_text"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

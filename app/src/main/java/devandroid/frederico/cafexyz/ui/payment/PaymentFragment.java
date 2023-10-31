@@ -60,47 +60,35 @@ public class PaymentFragment extends Fragment {
         Button btnDiscount = view.findViewById(R.id.btn_discount);
         Button btnFinalizar = view.findViewById(R.id.btn_finalizar);
 
-        btnDiscount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DiscountFragment dialogFragment = new DiscountFragment(paymentFragment);
-                dialogFragment.show(getParentFragmentManager(), "CustomDialog");
-            }
+        btnDiscount.setOnClickListener(view12 -> {
+            DiscountFragment dialogFragment = new DiscountFragment(paymentFragment);
+            dialogFragment.show(getParentFragmentManager(), "CustomDialog");
         });
 
-        btnFinalizar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sharedViewModel.finalizarVenda();
-                NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentMain);
-                navController.navigate(R.id.homeFragment);
-            }
+        btnFinalizar.setOnClickListener(view1 -> {
+            sharedViewModel.finalizarVenda();
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentMain);
+            navController.navigate(R.id.homeFragment);
         });
 
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonAdd.setVisibility(View.GONE);
-                buttonRemove.setVisibility(View.VISIBLE);
-                constraintLayout2.getLayoutParams().height = convertDpToPixel(133, requireContext());
-                valueTextView.setVisibility(View.VISIBLE);
-                valueTextView.setText(String.format("R$ %.2f", sharedViewModel.calculateTotalValue()));
-                if (sharedViewModel.calculateDiscountedTotalValue() > 0) {
-                    valueTextView.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
-                }
-                midBar0.setVisibility(View.VISIBLE);
+        buttonAdd.setOnClickListener(v -> {
+            buttonAdd.setVisibility(View.GONE);
+            buttonRemove.setVisibility(View.VISIBLE);
+            constraintLayout2.getLayoutParams().height = convertDpToPixel(133, requireContext());
+            valueTextView.setVisibility(View.VISIBLE);
+            valueTextView.setText(String.format("R$ %.2f", sharedViewModel.calculateTotalValue()));
+            if (sharedViewModel.calculateDiscountedTotalValue() > 0) {
+                valueTextView.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
             }
+            midBar0.setVisibility(View.VISIBLE);
         });
 
-        buttonRemove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonAdd.setVisibility(View.VISIBLE);
-                buttonRemove.setVisibility(View.GONE);
-                constraintLayout2.getLayoutParams().height = convertDpToPixel(77, requireContext());
-                valueTextView.setVisibility(View.GONE);
-                midBar0.setVisibility(View.GONE);
-            }
+        buttonRemove.setOnClickListener(v -> {
+            buttonAdd.setVisibility(View.VISIBLE);
+            buttonRemove.setVisibility(View.GONE);
+            constraintLayout2.getLayoutParams().height = convertDpToPixel(77, requireContext());
+            valueTextView.setVisibility(View.GONE);
+            midBar0.setVisibility(View.GONE);
         });
     }
 

@@ -63,38 +63,29 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
         NavController navController = navHostFragment.getNavController();
 
 
-        cartBottom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.cartFragment);
-                bottomBar.startAnimation(fadeOut);
-                bottomBar2.startAnimation(fadeIn);
-                bottomBar.setVisibility(View.GONE);
-                bottomBar2.setVisibility(View.VISIBLE);
-            }
+        cartBottom.setOnClickListener(view -> {
+            navController.navigate(R.id.cartFragment);
+            bottomBar.startAnimation(fadeOut);
+            bottomBar2.startAnimation(fadeIn);
+            bottomBar.setVisibility(View.GONE);
+            bottomBar2.setVisibility(View.VISIBLE);
         });
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Double totalValue = sharedViewModel.calculateTotalValue();
-                int cartSize = sharedViewModel.cartSize();
-                navController.navigate(R.id.cartFragment);
-                bottomBar.startAnimation(fadeOut);
-                bottomBar2.startAnimation(fadeIn);
-                bottomBar.setVisibility(View.GONE);
-                bottomBar2.setVisibility(View.VISIBLE);
-                totalBottom2.setText(String.format("R$ %.2f", totalValue));
-                itemCount.setText(String.format("%d items", cartSize));
-            }
+        nextButton.setOnClickListener(view -> {
+            Double totalValue = sharedViewModel.calculateTotalValue();
+            int cartSize = sharedViewModel.cartSize();
+            navController.navigate(R.id.cartFragment);
+            bottomBar.startAnimation(fadeOut);
+            bottomBar2.startAnimation(fadeIn);
+            bottomBar.setVisibility(View.GONE);
+            bottomBar2.setVisibility(View.VISIBLE);
+            totalBottom2.setText(String.format("R$ %.2f", totalValue));
+            itemCount.setText(String.format("%d items", cartSize));
         });
 
-        nextButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.paymentFragment);
-                bottomBar2.startAnimation(fadeOut);
-                bottomBar2.setVisibility(View.GONE);
-            }
+        nextButton2.setOnClickListener(view -> {
+            navController.navigate(R.id.paymentFragment);
+            bottomBar2.startAnimation(fadeOut);
+            bottomBar2.setVisibility(View.GONE);
         });
 
 

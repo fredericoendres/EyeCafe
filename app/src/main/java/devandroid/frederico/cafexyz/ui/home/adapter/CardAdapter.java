@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -70,22 +71,30 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
             productTitle = itemView.findViewById(R.id.product_title);
             productPrice = itemView.findViewById(R.id.product_price);
             qntBtn = itemView.findViewById(R.id.qnt_item);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (recycleViewInterface != null) {
-                        int position = getAdapterPosition();
-                        qntBtn.setVisibility(View.VISIBLE);
-                        if(position != RecyclerView.NO_POSITION) {
-                            ProductModel productModel = productModelArrayList.get(position);
-                            qntBtn.setText(String.valueOf(sharedViewModel.productCount(productModel.getProductTitle())));
-                            recycleViewInterface.bottomBarVisibility();
-                            sharedViewModel.addToCart(productModel);
-                            sharedViewModel.notifyCartUpdate();
-                        }
+            itemView.setOnClickListener(view -> {
+                if (recycleViewInterface != null) {
+                    int position = getAdapterPosition();
+                    qntBtn.setVisibility(View.VISIBLE);
+                    if(position != RecyclerView.NO_POSITION) {
+                        ProductModel productModel = productModelArrayList.get(position);
+                        qntBtn.setText(String.valueOf(sharedViewModel.productCount(productModel.getProductTitle())));
+                        recycleViewInterface.bottomBarVisibility();
+                        sharedViewModel.addToCart(productModel);
+                        sharedViewModel.notifyCartUpdate();
                     }
                 }
             });
+
+            itemView.setOnLongClickListener(v -> {
+                showLancamentoDialogFragment();
+                return true;
+            });
+        }
+
+        private void showLancamentoDialogFragment() {
+            LancamentoDialogFragment dialogFragment = new LancamentoDialogFragment();
+            dialogFragment.show(((FragmentActivity) context).getSupportFragmentManager(), "LancamentoDialogFragment");
+
         }
     }
 
