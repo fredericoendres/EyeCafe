@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
+import devandroid.frederico.cafexyz.ui.home.adapter.DiscountClickListener;
 
 public class DiscountFragment extends DialogFragment implements View.OnClickListener {
 
@@ -25,10 +26,11 @@ public class DiscountFragment extends DialogFragment implements View.OnClickList
     private TextView discountValueTextView;
 
     private SharedViewModel sharedViewModel;
-    private PaymentFragment paymentFragment;
+    private DiscountClickListener discountClickListener;
 
-    public DiscountFragment(PaymentFragment paymentFragment) {
-        this.paymentFragment = paymentFragment;
+
+    public void setCallback (DiscountClickListener discountClickListener) {
+        this.discountClickListener = discountClickListener;
     }
 
     @Nullable
@@ -90,7 +92,7 @@ public class DiscountFragment extends DialogFragment implements View.OnClickList
                     sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
                     double discount = Double.parseDouble(discountAmount.toString());
                     sharedViewModel.applyDiscount(discount);
-                    paymentFragment.updateTotalValueTextView();
+                    discountClickListener.discountClick();
                 }
             dismiss();
         }else {
