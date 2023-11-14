@@ -39,7 +39,6 @@ public class DiscountFragment extends DialogFragment implements View.OnClickList
         View view = inflater.inflate(R.layout.discount_layout, container, false);
 
         discountValueTextView = view.findViewById(R.id.discount_value);
-
         view.findViewById(R.id.qnt_sub0).setOnClickListener(this);
         view.findViewById(R.id.qnt_sub1).setOnClickListener(this);
         view.findViewById(R.id.qnt_sub2).setOnClickListener(this);

@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import devandroid.frederico.cafexyz.data.ProductModel;
@@ -46,11 +48,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CardAdapter.ViewHolder holder, int position) {
-        ProductModel model = productModelArrayList.get(position);
-        holder.productTitle.setText(model.getProductTitle());
-        double totalValue = model.getProductPrice();
-        holder.productPrice.setText(String.format("R$ %.2f", totalValue));
-        holder.productImage.setImageResource(model.getProductImage());
+        holder.bind(productModelArrayList.get(position));
     }
 
 
@@ -89,6 +87,14 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                 showLancamentoDialogFragment();
                 return true;
             });
+        }
+
+        public void bind(ProductModel productModel){
+            double price = productModel.getProductPrice();
+            String formattedPrice = String.format("R$ %.2f", price);
+            productPrice.setText(formattedPrice);
+            productTitle.setText(productModel.getProductTitle()+"");
+            Glide.with(context).load(productModel.getProductImage()).into(productImage);
         }
 
         private void showLancamentoDialogFragment() {

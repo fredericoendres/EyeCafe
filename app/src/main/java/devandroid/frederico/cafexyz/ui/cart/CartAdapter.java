@@ -13,6 +13,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import devandroid.frederico.cafexyz.R;
@@ -43,7 +45,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.productTitle.setText(model.getProductTitle());
         double totalValue = model.getProductPrice();
         holder.productPrice.setText(String.format("R$ %.2f", totalValue));
-        holder.productImage.setImageResource(model.getProductImage());
+        Glide.with(context)
+                .load(model.getProductImage())
+                .into(holder.productImage);
         holder.editDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,11 +66,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         return sharedViewModel.cartSize();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView productTitle;
         private final TextView productPrice;
         private final ImageView productImage;
         private final ImageView editDialog;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

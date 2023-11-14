@@ -1,14 +1,17 @@
 package devandroid.frederico.cafexyz.data;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.math.BigDecimal;
 
 public class ProductModel {
 
     private String productTitle;
     private Double productPrice;
-    private int productImage;
+    @SerializedName("productImage")
+    private String productImage;
 
-    public ProductModel(String productTitle, Double productPrice, int productImage) {
+    public ProductModel(String productTitle, Double productPrice, String productImage) {
         this.productTitle = productTitle;
         this.productPrice = productPrice;
         this.productImage = productImage;
@@ -30,11 +33,11 @@ public class ProductModel {
         this.productPrice = productPrice;
     }
 
-    public int getProductImage() {
+    public String getProductImage() {
         return productImage;
     }
 
-    public void setProductImage(int productImage) {
+    public void setProductImage(String productImage) {
         this.productImage = productImage;
     }
 

@@ -16,14 +16,21 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import devandroid.frederico.cafexyz.R;
+import devandroid.frederico.cafexyz.data.ApiClient;
+import devandroid.frederico.cafexyz.data.ApiInterface;
+import devandroid.frederico.cafexyz.data.ApiResponse;
 import devandroid.frederico.cafexyz.data.ProductModel;
 import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class HomeFragment extends Fragment implements RecycleViewInterface {
 
     private SharedViewModel sharedViewModel;
     private ArrayList<ProductModel> productModelArrayList;
+    CardAdapter cardAdapter;
 
     private BottomBarVisibilityListener bottomBarVisibilityListener;
 
@@ -49,18 +56,34 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
         RecyclerView productRecycle = view.findViewById(R.id.product_recycle); // Refatorar com ViewBinding
 
         productModelArrayList = new ArrayList<ProductModel>();
-        productModelArrayList.add(new ProductModel("Ovos com bacon", 25.00, R.drawable.ovos));
-        productModelArrayList.add(new ProductModel("Kit café com waffle", 30.00, R.drawable.waffles));
 
-        CardAdapter courseAdapter = new CardAdapter(getContext(), productModelArrayList, this, sharedViewModel);
+        cardAdapter = new CardAdapter(getContext(), productModelArrayList, this, sharedViewModel);
 
-        productRecycle.setAdapter(courseAdapter);
+        productRecycle.setAdapter(cardAdapter);
+        populateProduct();
 
         return view;
     }
 
+    public void populateProduct(){
 
+        ApiClient.getClient().create(ApiInterface.class).getProductList().enqueue(new Callback<ApiResponse>() {
+            @Override
+            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                if (response.code() == 200) {
+                    if (response.body().isStatus()) {
+                        productModelArrayList.addAll(response.body().getData());
+                        cardAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
 
+            @Override
+            public void onFailure(Call<ApiResponse> call, Throwable t) {
+
+            }
+        });
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
