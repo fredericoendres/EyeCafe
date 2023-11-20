@@ -12,12 +12,19 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import devandroid.frederico.cafexyz.data.RoomDB;
+import devandroid.frederico.cafexyz.data.RoomData;
 import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.ui.home.adapter.HomeFragment;
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.BottomBarVisibilityListener, SharedViewModel.CartListener {
     private SharedViewModel sharedViewModel;
+    List<RoomData> roomDataList = new ArrayList<>();
+    RoomDB database;
     private View bottomBar;
     private View bottomBar2;
     private Animation fadeIn;

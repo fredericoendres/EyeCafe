@@ -15,9 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import devandroid.frederico.cafexyz.data.ProductModel;
 import devandroid.frederico.cafexyz.R;
+import devandroid.frederico.cafexyz.data.RoomDB;
+import devandroid.frederico.cafexyz.data.RoomData;
 import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
@@ -26,9 +29,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     private final Context context;
     private final ArrayList<ProductModel> productModelArrayList;
     private int[] clickCount;
-
     private SharedViewModel sharedViewModel;
-
+    private List<RoomData> roomDataList;
+    private RoomDB database;
 
 
     public CardAdapter(Context context, ArrayList<ProductModel> productModelArrayList, RecycleViewInterface recycleViewInterface, SharedViewModel sharedViewModel) {

@@ -161,12 +161,12 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:text="@string/observacao"
-            app:layout_constraintBottom_toTopOf="@+id/editText"
+            app:layout_constraintBottom_toTopOf="@+id/observationText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/observationText"
             style="@style/SmallText"
             android:layout_width="252dp"
             android:layout_height="60dp"

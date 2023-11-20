@@ -3,10 +3,14 @@ package devandroid.frederico.cafexyz.ui.cart;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import devandroid.frederico.cafexyz.data.ProductModel;
+import devandroid.frederico.cafexyz.data.RoomDB;
+import devandroid.frederico.cafexyz.data.RoomData;
 
 public class SharedViewModel extends ViewModel {
+
 
     public int getClickCount() {
         return clickCount;
