@@ -1,5 +1,7 @@
 package devandroid.frederico.cafexyz.ui.cart;
 
+import android.app.Application;
+
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
@@ -8,10 +10,15 @@ import java.util.List;
 import devandroid.frederico.cafexyz.data.ProductModel;
 import devandroid.frederico.cafexyz.data.RoomDB;
 import devandroid.frederico.cafexyz.data.RoomData;
+import devandroid.frederico.cafexyz.data.RoomRepository;
 
 public class SharedViewModel extends ViewModel {
 
+    RoomRepository roomRepository;
 
+    /*public SharedViewModel(Application application) {
+        roomRepository = new RoomRepository(application);
+    }*/
     public int getClickCount() {
         return clickCount;
     }
@@ -44,6 +51,7 @@ public class SharedViewModel extends ViewModel {
     public void finalizarVenda() {
         cartItems.clear();
         notifyCartUpdate();
+        roomRepository.insertTransaction(calculateTotalValue());
     }
 
     public void applyDiscount(double discount) {

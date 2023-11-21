@@ -1,15 +1,17 @@
 package devandroid.frederico.cafexyz.data;
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import java.util.List;
-import static androidx.room.OnConflictStrategy.REPLACE;
+
+import static androidx.room.OnConflictStrategy.IGNORE;
 
 @Dao
 public interface RoomDao {
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = IGNORE)
     void insert(RoomData roomData);
 
     @Delete
@@ -18,10 +20,7 @@ public interface RoomDao {
     @Delete
     void reset(List<RoomData> roomData);
 
-    @Query("UPDATE room_db SET productPrice = :sPrice WHERE ID = :sID")
-    void update(int sID, String sPrice);
-
     @Query("SELECT * FROM room_db")
-    List<RoomData> getAll();
+    LiveData<List<RoomData>> getAll();
 
 }

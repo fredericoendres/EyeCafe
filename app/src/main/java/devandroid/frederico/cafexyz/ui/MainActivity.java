@@ -1,6 +1,8 @@
 package devandroid.frederico.cafexyz.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -24,7 +26,7 @@ import devandroid.frederico.cafexyz.ui.home.adapter.HomeFragment;
 public class MainActivity extends AppCompatActivity implements HomeFragment.BottomBarVisibilityListener, SharedViewModel.CartListener {
     private SharedViewModel sharedViewModel;
     List<RoomData> roomDataList = new ArrayList<>();
-    RoomDB database;
+
     private View bottomBar;
     private View bottomBar2;
     private Animation fadeIn;
@@ -52,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
         sharedViewModel.setCartListener(this);
 
@@ -68,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMain);
         NavController navController = navHostFragment.getNavController();
-
 
         cartBottom.setOnClickListener(view -> {
             navController.navigate(R.id.cartFragment);
@@ -97,6 +97,32 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
 
 
     }
+    public void onBackPressed() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
+
+        if (currentFragment instanceof NavHostFragment) {
+            NavController navController = ((NavHostFragment) currentFragment).getNavController();
+            int currentDestinationId = navController.getCurrentDestination().getId();
+
+            if (currentDestinationId == R.id.cartFragment) {
+                bottomBar2.startAnimation(fadeOut);
+                bottomBar.startAnimation(fadeIn);
+                bottomBar2.setVisibility(View.GONE);
+                bottomBar.setVisibility(View.VISIBLE);
+                navController.navigate(R.id.homeFragment);
+            } else if (currentDestinationId == R.id.paymentFragment) {
+                bottomBar2.startAnimation(fadeIn);
+                bottomBar2.setVisibility(View.VISIBLE);
+                navController.navigate(R.id.cartFragment);
+            } else {
+                super.onBackPressed();
+            }
+        } else {
+            super.onBackPressed();
+        }
+    }
+
 
 
 }

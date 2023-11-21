@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,6 +32,9 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
     private SharedViewModel sharedViewModel;
     private ArrayList<ProductModel> productModelArrayList;
     CardAdapter cardAdapter;
+
+    private ProgressBar progressBar;
+
 
     private BottomBarVisibilityListener bottomBarVisibilityListener;
 
@@ -54,6 +58,7 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         RecyclerView productRecycle = view.findViewById(R.id.product_recycle); // Refatorar com ViewBinding
+        progressBar = view.findViewById(R.id.progressBar);
 
         productModelArrayList = new ArrayList<ProductModel>();
 
@@ -66,7 +71,7 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
     }
 
     public void populateProduct(){
-
+        progressBar.setVisibility(View.VISIBLE);
         ApiClient.getClient().create(ApiInterface.class).getProductList().enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
@@ -76,6 +81,7 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
                         cardAdapter.notifyDataSetChanged();
                     }
                 }
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override

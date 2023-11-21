@@ -7,16 +7,18 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import devandroid.frederico.cafexyz.R;
+import devandroid.frederico.cafexyz.data.RoomDB;
 
 public class SplashActivity extends AppCompatActivity {
 
     public static final int TIME_OUT_SPLASH = 3000;
-
+    RoomDB database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
+        database = RoomDB.getInstance(this);
 
         telaSplash();
     }

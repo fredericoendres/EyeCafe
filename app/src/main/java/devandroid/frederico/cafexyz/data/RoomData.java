@@ -4,19 +4,19 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+
+
 @Entity(tableName = "room_db")
 public class RoomData {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    @ColumnInfo(name = "productTitle")
-    private String productTitle;
+    @ColumnInfo(name = "transactionTime")
+    private Long transactionTime;
 
-    @ColumnInfo(name = "productPrice")
-    private Double productPrice;
-
-    private String productImage;
+    @ColumnInfo(name = "transactionValue")
+    private Double transactionValue;
 
     public int getId() {
         return id;
@@ -26,27 +26,19 @@ public class RoomData {
         this.id = id;
     }
 
-    public String getProductTitle() {
-        return productTitle;
+    public Long getTransactionTime() {
+        return transactionTime;
     }
 
-    public void setProductTitle(String productTitle) {
-        this.productTitle = productTitle;
+    public void setTransactionTime(Long transactionTime) {
+        this.transactionTime = transactionTime;
     }
 
-    public Double getProductPrice() {
-        return productPrice;
+    public Double getTransactionValue() {
+        return transactionValue;
     }
 
-    public void setProductPrice(Double productPrice) {
-        this.productPrice = productPrice;
-    }
-
-    public String getProductImage() {
-        return productImage;
-    }
-
-    public void setProductImage(String productImage) {
-        this.productImage = productImage;
+    public void setTransactionValue(Double transactionValue) {
+        this.transactionValue = transactionValue;
     }
 }
