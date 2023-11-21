@@ -26,7 +26,7 @@ import devandroid.frederico.cafexyz.ui.home.adapter.HomeFragment;
 public class MainActivity extends AppCompatActivity implements HomeFragment.BottomBarVisibilityListener, SharedViewModel.CartListener {
     private SharedViewModel sharedViewModel;
     List<RoomData> roomDataList = new ArrayList<>();
-
+    RoomDB database;
     private View bottomBar;
     private View bottomBar2;
     private Animation fadeIn;
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
         setContentView(R.layout.activity_main);
         sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
         sharedViewModel.setCartListener(this);
-
+        database = RoomDB.getInstance(this);
         ImageView nextButton = findViewById(R.id.arrowBottom);
         ImageView nextButton2 = findViewById(R.id.arrowBottom2);
         ImageView cartBottom = findViewById(R.id.cartBottom);

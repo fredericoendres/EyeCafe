@@ -39,7 +39,14 @@ public abstract class RoomDB extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             Log.d("RoomDB", "Database criada");
+
+            RoomDB.databaseWriteExecutor.execute(() -> {
+                RoomDao dao = INSTANCE.roomDao();
+                RoomData roomData = new RoomData();
+                roomData.setTransactionTime(System.currentTimeMillis());
+                roomData.setTransactionValue(1.0);
+                dao.insert(roomData);
+            });
         }
     };
-
 }
