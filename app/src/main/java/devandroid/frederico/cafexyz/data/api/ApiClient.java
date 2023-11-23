@@ -1,4 +1,4 @@
-package devandroid.frederico.cafexyz.data;
+package devandroid.frederico.cafexyz.data.api;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

@@ -12,15 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import devandroid.frederico.cafexyz.R;
-import devandroid.frederico.cafexyz.data.ApiClient;
-import devandroid.frederico.cafexyz.data.ApiInterface;
-import devandroid.frederico.cafexyz.data.ApiResponse;
-import devandroid.frederico.cafexyz.data.ProductModel;
+import devandroid.frederico.cafexyz.data.api.ApiClient;
+import devandroid.frederico.cafexyz.data.api.ApiInterface;
+import devandroid.frederico.cafexyz.data.api.ApiResponse;
+import devandroid.frederico.cafexyz.data.api.ProductModel;
 import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;

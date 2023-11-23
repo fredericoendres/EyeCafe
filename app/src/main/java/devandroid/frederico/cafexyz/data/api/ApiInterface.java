@@ -1,4 +1,4 @@
-package devandroid.frederico.cafexyz.data;
+package devandroid.frederico.cafexyz.data.api;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

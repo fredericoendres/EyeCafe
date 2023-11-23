@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import devandroid.frederico.cafexyz.R;
-import devandroid.frederico.cafexyz.data.ProductModel;
+import devandroid.frederico.cafexyz.data.api.ProductModel;
 
 public class CartFragment extends Fragment {
 

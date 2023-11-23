@@ -1,4 +1,4 @@
-package devandroid.frederico.cafexyz.data;
+package devandroid.frederico.cafexyz.data.database;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

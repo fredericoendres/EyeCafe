@@ -14,8 +14,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavController;
 
 import devandroid.frederico.cafexyz.R;
-import devandroid.frederico.cafexyz.data.ProductModel;
-import devandroid.frederico.cafexyz.ui.home.adapter.LancamentoDialogFragment;
+import devandroid.frederico.cafexyz.data.api.ProductModel;
 
 public class DeleteDialogFragment extends PopupWindow {
     private NavController navController;

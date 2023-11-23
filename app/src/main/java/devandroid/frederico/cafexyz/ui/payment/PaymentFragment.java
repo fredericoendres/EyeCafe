@@ -69,7 +69,7 @@ public class PaymentFragment extends Fragment implements DiscountClickListener {
         });
 
         btnFinalizar.setOnClickListener(view1 -> {
-            sharedViewModel.finalizarVenda();
+            sharedViewModel.finalizarVenda(requireContext());
             NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentMain);
             navController.navigate(R.id.homeFragment);
         });

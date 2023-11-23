@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import devandroid.frederico.cafexyz.R;
-import devandroid.frederico.cafexyz.data.RoomDB;
 
 public class SplashActivity extends AppCompatActivity {
 

@@ -1,13 +1,10 @@
-package devandroid.frederico.cafexyz.data;
+package devandroid.frederico.cafexyz.data.database;
 
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
-
-import devandroid.frederico.cafexyz.data.database.TransactionDao;
-import devandroid.frederico.cafexyz.data.database.TransactionEntity;
 
 public class TransactionRepository {
 
@@ -36,7 +33,10 @@ public class TransactionRepository {
         TransactionEntity roomData = new TransactionEntity();
         roomData.setTransactionTime(System.currentTimeMillis());
         roomData.setTransactionValue(totalValue);
-        roomDao.insert(roomData);
+
+        AppDB.databaseWriteExecutor.execute(() -> {
+            roomDao.insert(roomData);
+        });
     }
 
 }

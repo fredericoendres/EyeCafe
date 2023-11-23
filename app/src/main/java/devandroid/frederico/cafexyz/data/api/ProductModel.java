@@ -1,4 +1,4 @@
-package devandroid.frederico.cafexyz.data;
+package devandroid.frederico.cafexyz.data.api;
 
 import com.google.gson.annotations.SerializedName;
 

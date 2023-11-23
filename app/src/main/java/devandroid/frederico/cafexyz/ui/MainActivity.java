@@ -17,16 +17,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import devandroid.frederico.cafexyz.data.RoomDB;
-import devandroid.frederico.cafexyz.data.RoomData;
+import devandroid.frederico.cafexyz.data.database.AppDB;
+import devandroid.frederico.cafexyz.data.database.TransactionEntity;
 import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.ui.home.adapter.HomeFragment;
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.BottomBarVisibilityListener, SharedViewModel.CartListener {
     private SharedViewModel sharedViewModel;
-    List<RoomData> roomDataList = new ArrayList<>();
-    RoomDB database;
+    List<TransactionEntity> roomDataList = new ArrayList<>();
+    AppDB database;
     private View bottomBar;
     private View bottomBar2;
     private Animation fadeIn;
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
         setContentView(R.layout.activity_main);
         sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
         sharedViewModel.setCartListener(this);
-        database = RoomDB.getInstance(this);
+        database = AppDB.getInstance(this);
         ImageView nextButton = findViewById(R.id.arrowBottom);
         ImageView nextButton2 = findViewById(R.id.arrowBottom2);
         ImageView cartBottom = findViewById(R.id.cartBottom);

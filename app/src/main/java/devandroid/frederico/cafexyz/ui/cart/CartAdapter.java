@@ -15,11 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
-
 import devandroid.frederico.cafexyz.R;
-import devandroid.frederico.cafexyz.data.ProductModel;
-import devandroid.frederico.cafexyz.ui.home.adapter.CardAdapter;
+import devandroid.frederico.cafexyz.data.api.ProductModel;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
