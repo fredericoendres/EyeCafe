@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey;
 
 
 
-@Entity(tableName = "room_db")
-public class RoomData {
+@Entity(tableName = "transaction_db")
+public class TransactionEntity {
 
     @PrimaryKey(autoGenerate = true)
     private int id;

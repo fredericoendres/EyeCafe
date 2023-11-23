@@ -9,18 +9,18 @@ import java.util.List;
 import static androidx.room.OnConflictStrategy.IGNORE;
 
 @Dao
-public interface RoomDao {
+public interface TransactionDao {
 
     @Insert(onConflict = IGNORE)
-    void insert(RoomData roomData);
+    void insert(TransactionEntity roomData);
 
     @Delete
-    void delete(RoomData roomData);
+    void delete(TransactionEntity roomData);
 
     @Delete
-    void reset(List<RoomData> roomData);
+    void reset(List<TransactionEntity> roomData);
 
-    @Query("SELECT * FROM room_db")
-    LiveData<List<RoomData>> getAll();
+    @Query("SELECT * FROM transaction_db")
+    LiveData<List<TransactionEntity>> getAll();
 
 }
