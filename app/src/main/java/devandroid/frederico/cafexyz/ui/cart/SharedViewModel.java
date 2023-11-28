@@ -43,10 +43,10 @@ public class SharedViewModel extends ViewModel {
     }
 
     public void finalizarVenda(Context context) {
-        cartItems.clear();
         notifyCartUpdate();
         roomRepository = new TransactionRepository(context);
         roomRepository.insertTransaction(calculateTotalValue());
+        cartItems.clear();
     }
 
     public void applyDiscount(double discount) {
@@ -97,7 +97,7 @@ public class SharedViewModel extends ViewModel {
 
 
     public int productCount(String productTitle) {
-        int count = 1;
+        int count = 0;
         for (ProductModel product : cartItems) {
             if (product.getProductTitle().equals(productTitle)) {
                 count++;

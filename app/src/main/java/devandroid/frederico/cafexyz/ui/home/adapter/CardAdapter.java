@@ -32,6 +32,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     private SharedViewModel sharedViewModel;
     private List<TransactionEntity> roomDataList;
     private AppDB database;
+    private boolean isFirstClick = true;
+
 
 
     public CardAdapter(Context context, ArrayList<ProductModel> productModelArrayList, RecycleViewInterface recycleViewInterface, SharedViewModel sharedViewModel) {
@@ -75,10 +77,16 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
             itemView.setOnClickListener(view -> {
                 if (recycleViewInterface != null) {
                     int position = getAdapterPosition();
-                    qntBtn.setVisibility(View.VISIBLE);
-                    if(position != RecyclerView.NO_POSITION) {
+                    if (position != RecyclerView.NO_POSITION) {
                         ProductModel productModel = productModelArrayList.get(position);
-                        qntBtn.setText(String.valueOf(sharedViewModel.productCount(productModel.getProductTitle())));
+                        int productCount = sharedViewModel.productCount(productModel.getProductTitle());
+                        if (productCount == 0) {
+                            qntBtn.setVisibility(View.VISIBLE);
+                        } else {
+                            qntBtn.setVisibility(productCount > 0 ? View.VISIBLE : View.INVISIBLE);
+                        }
+                        productCount++;
+                        qntBtn.setText(String.valueOf(productCount));
                         recycleViewInterface.bottomBarVisibility();
                         sharedViewModel.addToCart(productModel);
                         sharedViewModel.notifyCartUpdate();
@@ -98,6 +106,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
             productPrice.setText(formattedPrice);
             productTitle.setText(productModel.getProductTitle()+"");
             Glide.with(context).load(productModel.getProductImage()).into(productImage);
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                int productCount = sharedViewModel.productCount(productModel.getProductTitle());
+                qntBtn.setVisibility(productCount > 0 ? View.VISIBLE : View.INVISIBLE);
+                qntBtn.setText(String.valueOf(productCount));
+            }
         }
 
         private void showLancamentoDialogFragment() {
