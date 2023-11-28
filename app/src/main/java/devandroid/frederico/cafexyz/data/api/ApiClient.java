@@ -1,5 +1,6 @@
 package devandroid.frederico.cafexyz.data.api;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -9,9 +10,13 @@ public class ApiClient {
 
     public static Retrofit getClient(){
         if (retrofit == null){
+            OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .addInterceptor(new LoggingInterceptor()) // Add the OkHttp interceptor
+                    .build();
+
             retrofit = new Retrofit.Builder()
                     .baseUrl(base_url)
-                    .addConverterFactory(GsonConverterFactory.create()).build();
+                    .addConverterFactory(GsonConverterFactory.create()).client(okHttpClient).build();
         }
         return retrofit;
     }
