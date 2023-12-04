@@ -45,7 +45,7 @@ public class SharedViewModel extends ViewModel {
     public void finalizarVenda(Context context) {
         notifyCartUpdate();
         roomRepository = new TransactionRepository(context);
-        roomRepository.insertTransaction(calculateTotalValue());
+        roomRepository.insertTransaction(calculateDiscountedTotalValue());
         cartItems.clear();
     }
 

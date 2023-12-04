@@ -11,7 +11,7 @@ public class ApiClient {
     public static Retrofit getClient(){
         if (retrofit == null){
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                    .addInterceptor(new LoggingInterceptor()) // Add the OkHttp interceptor
+                    .addInterceptor(new LoggingInterceptor())
                     .build();
 
             retrofit = new Retrofit.Builder()
