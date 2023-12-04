@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {TransactionEntity.class},version = 1, exportSchema = false)
+@Database(entities = {TransactionEntity.class},version = 2, exportSchema = false)
 public abstract class AppDB extends RoomDatabase {
 
     private static volatile AppDB INSTANCE;
@@ -23,7 +23,7 @@ public abstract class AppDB extends RoomDatabase {
             synchronized (AppDB.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    AppDB.class, "room_database").build();
+                                    AppDB.class, "room_database").fallbackToDestructiveMigration().build();
                 }
             }
         }
