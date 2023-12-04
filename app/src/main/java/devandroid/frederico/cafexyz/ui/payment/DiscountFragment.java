@@ -28,7 +28,6 @@ public class DiscountFragment extends DialogFragment implements View.OnClickList
     private SharedViewModel sharedViewModel;
     private DiscountClickListener discountClickListener;
 
-
     public void setCallback (DiscountClickListener discountClickListener) {
         this.discountClickListener = discountClickListener;
     }

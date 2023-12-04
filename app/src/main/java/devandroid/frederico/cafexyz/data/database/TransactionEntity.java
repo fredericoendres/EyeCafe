@@ -18,6 +18,17 @@ public class TransactionEntity {
     @ColumnInfo(name = "transactionValue")
     private Double transactionValue;
 
+    @ColumnInfo(name = "paymentType")
+    private String paymentType;
+
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
+    }
+
     public int getId() {
         return id;
     }

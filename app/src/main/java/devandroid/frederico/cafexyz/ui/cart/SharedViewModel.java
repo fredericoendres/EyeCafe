@@ -38,6 +38,16 @@ public class SharedViewModel extends ViewModel {
 
     private CartListener cartListener;
 
+    private String paymentType;
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
+    }
+
+    public String getPaymentType() {
+        return paymentType;
+    }
+
     public void setCartListener(CartListener listener) {
         this.cartListener = listener;
     }
@@ -45,7 +55,7 @@ public class SharedViewModel extends ViewModel {
     public void finalizarVenda(Context context) {
         notifyCartUpdate();
         roomRepository = new TransactionRepository(context);
-        roomRepository.insertTransaction(calculateDiscountedTotalValue());
+        roomRepository.insertTransaction(calculateDiscountedTotalValue(), getPaymentType());
         cartItems.clear();
     }
 

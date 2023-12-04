@@ -17,6 +17,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
 import devandroid.frederico.cafexyz.ui.home.adapter.DiscountClickListener;
@@ -27,6 +29,7 @@ public class PaymentFragment extends Fragment implements DiscountClickListener {
     private SharedViewModel sharedViewModel;
     double totalValue;
     private TextView totalValueTextView;
+    private String payType;
 
     public PaymentFragment() {
     }
@@ -69,9 +72,15 @@ public class PaymentFragment extends Fragment implements DiscountClickListener {
         });
 
         btnFinalizar.setOnClickListener(view1 -> {
-            sharedViewModel.finalizarVenda(requireContext());
-            NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentMain);
-            navController.navigate(R.id.homeFragment);
+            if (payType != null) {
+                sharedViewModel.setPaymentType(payType);
+                sharedViewModel.finalizarVenda(requireContext());
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentMain);
+                navController.navigate(R.id.homeFragment);
+            }
+            else {
+                Snackbar.make(requireView(), "Selecione uma forma de pagamento para prosseguir", Snackbar.LENGTH_LONG).show();
+            }
         });
 
         buttonAdd.setOnClickListener(v -> {
@@ -84,6 +93,7 @@ public class PaymentFragment extends Fragment implements DiscountClickListener {
                 valueTextView.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
             }
             midBar0.setVisibility(View.VISIBLE);
+            payType = "Dinheiro";
         });
 
         buttonRemove.setOnClickListener(v -> {
@@ -92,6 +102,7 @@ public class PaymentFragment extends Fragment implements DiscountClickListener {
             constraintLayout2.getLayoutParams().height = convertDpToPixel(77, requireContext());
             valueTextView.setVisibility(View.GONE);
             midBar0.setVisibility(View.GONE);
+            payType = null;
         });
     }
 

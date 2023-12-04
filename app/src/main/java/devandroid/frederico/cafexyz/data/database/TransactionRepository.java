@@ -29,10 +29,11 @@ public class TransactionRepository {
         });
     }
 
-    public void insertTransaction(double totalValue) {
+    public void insertTransaction(double totalValue, String paymentType) {
         TransactionEntity roomData = new TransactionEntity();
         roomData.setTransactionTime(System.currentTimeMillis());
         roomData.setTransactionValue(totalValue);
+        roomData.setPaymentType(paymentType);
 
         AppDB.databaseWriteExecutor.execute(() -> {
             roomDao.insert(roomData);
