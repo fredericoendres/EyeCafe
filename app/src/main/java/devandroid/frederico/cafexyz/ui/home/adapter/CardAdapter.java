@@ -23,7 +23,8 @@ import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.data.database.TransactionEntity;
 import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
 
-public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
+public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder>
+        implements LancamentoLongPress.OnDismissListener{
 
     private final RecycleViewInterface recycleViewInterface;
     private final Context context;
@@ -61,6 +62,15 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     public int getItemCount() {
         return productModelArrayList.size();
     }
+
+    @Override
+    public void onDismiss() {
+        notifyDataSetChanged();
+        if(sharedViewModel.cartSize() > 0) {
+            recycleViewInterface.bottomBarVisibility();
+        }
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView productTitle;
@@ -115,9 +125,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         }
 
         private void showLancamentoDialogFragment() {
-            LancamentoDialogFragment dialogFragment = new LancamentoDialogFragment();
+            LancamentoLongPress dialogFragment = new LancamentoLongPress();
+            dialogFragment.setOnDismissListener(CardAdapter.this);
             dialogFragment.show(((FragmentActivity) context).getSupportFragmentManager(), "LancamentoDialogFragment");
 
+            ProductModel productModel = productModelArrayList.get(getAdapterPosition());
+            dialogFragment.setData(productModel.getProductTitle(), productModel.getProductPrice().toString(), productModel.getProductImage());
         }
     }
 

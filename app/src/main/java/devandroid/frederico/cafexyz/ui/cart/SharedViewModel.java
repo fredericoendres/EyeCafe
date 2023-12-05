@@ -90,6 +90,14 @@ public class SharedViewModel extends ViewModel {
 
     public void addToCart(ProductModel productModel) {
         cartItems.add(productModel);
+        notifyCartUpdate();
+    }
+
+    public void addToCart(ProductModel productModel, int quantity) {
+        for (int i = 0; i < quantity; i++) {
+            cartItems.add(productModel);
+        }
+        notifyCartUpdate();
     }
 
     public double calculateTotalValue() {

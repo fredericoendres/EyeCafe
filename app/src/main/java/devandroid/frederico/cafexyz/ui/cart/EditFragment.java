@@ -20,6 +20,7 @@ import devandroid.frederico.cafexyz.R;
 
 public class EditFragment extends DialogFragment {
 
+    private SharedViewModel sharedViewModel;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,6 +44,8 @@ public class EditFragment extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         setStyle(STYLE_NORMAL, R.style.DialogFragmentTheme);
         super.onCreate(savedInstanceState);
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+
     }
 
     @Override

@@ -56,12 +56,23 @@ public class PaymentFragment extends Fragment implements DiscountClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ImageButton buttonAdd = view.findViewById(R.id.qnt_add0);
+        ImageButton buttonAdd1 = view.findViewById(R.id.qnt_add1);
+        ImageButton buttonAdd2 = view.findViewById(R.id.qnt_add2);
         ImageButton buttonRemove = view.findViewById(R.id.qnt_remove0);
+        ImageButton buttonRemove1 = view.findViewById(R.id.qnt_remove1);
+        ImageButton buttonRemove2 = view.findViewById(R.id.qnt_remove2);
         ConstraintLayout constraintLayout2 = view.findViewById(R.id.constraintLayout2);
+        ConstraintLayout constraintLayout4 = view.findViewById(R.id.constraintLayout4);
+        ConstraintLayout constraintLayout5 = view.findViewById(R.id.constraintLayout5);
         TextView valueTextView = view.findViewById(R.id.value_text);
+        TextView valueTextView1 = view.findViewById(R.id.value_text1);
+        TextView valueTextView2 = view.findViewById(R.id.value_text2);
         View midBar0 = view.findViewById(R.id.mid_bar0);
+        View midBar1 = view.findViewById(R.id.mid_bar1);
+        View midBar2 = view.findViewById(R.id.mid_bar2);
         Button btnDiscount = view.findViewById(R.id.btn_discount);
         Button btnFinalizar = view.findViewById(R.id.btn_finalizar);
+
 
 
 
@@ -84,16 +95,57 @@ public class PaymentFragment extends Fragment implements DiscountClickListener {
         });
 
         buttonAdd.setOnClickListener(v -> {
-            buttonAdd.setVisibility(View.GONE);
-            buttonRemove.setVisibility(View.VISIBLE);
-            constraintLayout2.getLayoutParams().height = convertDpToPixel(133, requireContext());
-            valueTextView.setVisibility(View.VISIBLE);
-            valueTextView.setText(String.format("R$ %.2f", sharedViewModel.calculateTotalValue()));
-            if (sharedViewModel.calculateDiscountedTotalValue() > 0) {
-                valueTextView.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
+            if(payType == null) {
+                buttonAdd.setVisibility(View.GONE);
+                buttonRemove.setVisibility(View.VISIBLE);
+                constraintLayout2.getLayoutParams().height = convertDpToPixel(133, requireContext());
+                valueTextView.setVisibility(View.VISIBLE);
+                valueTextView.setText(String.format("R$ %.2f", sharedViewModel.calculateTotalValue()));
+                if (sharedViewModel.calculateDiscountedTotalValue() > 0) {
+                    valueTextView.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
+                }
+                midBar0.setVisibility(View.VISIBLE);
+                payType = "Dinheiro";
             }
-            midBar0.setVisibility(View.VISIBLE);
-            payType = "Dinheiro";
+            else {
+                Snackbar.make(requireView(), "Você já possui uma forma de pagamento selecionada", Snackbar.LENGTH_LONG).show();
+            }
+        });
+
+        buttonAdd1.setOnClickListener(v -> {
+            if(payType == null) {
+                buttonAdd1.setVisibility(View.GONE);
+                buttonRemove1.setVisibility(View.VISIBLE);
+                constraintLayout4.getLayoutParams().height = convertDpToPixel(133, requireContext());
+                valueTextView1.setVisibility(View.VISIBLE);
+                valueTextView1.setText(String.format("R$ %.2f", sharedViewModel.calculateTotalValue()));
+                if (sharedViewModel.calculateDiscountedTotalValue() > 0) {
+                    valueTextView1.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
+                }
+                midBar1.setVisibility(View.VISIBLE);
+                payType = "Crédito";
+            }
+            else {
+                Snackbar.make(requireView(), "Você já possui uma forma de pagamento selecionada", Snackbar.LENGTH_LONG).show();
+            }
+        });
+
+        buttonAdd2.setOnClickListener(v -> {
+            if(payType == null) {
+                buttonAdd2.setVisibility(View.GONE);
+                buttonRemove2.setVisibility(View.VISIBLE);
+                constraintLayout5.getLayoutParams().height = convertDpToPixel(133, requireContext());
+                valueTextView2.setVisibility(View.VISIBLE);
+                valueTextView2.setText(String.format("R$ %.2f", sharedViewModel.calculateTotalValue()));
+                if (sharedViewModel.calculateDiscountedTotalValue() > 0) {
+                    valueTextView2.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
+                }
+                midBar2.setVisibility(View.VISIBLE);
+                payType = "Débito";
+            }
+            else {
+                Snackbar.make(requireView(), "Você já possui uma forma de pagamento selecionada", Snackbar.LENGTH_LONG).show();
+            }
         });
 
         buttonRemove.setOnClickListener(v -> {
@@ -102,6 +154,24 @@ public class PaymentFragment extends Fragment implements DiscountClickListener {
             constraintLayout2.getLayoutParams().height = convertDpToPixel(77, requireContext());
             valueTextView.setVisibility(View.GONE);
             midBar0.setVisibility(View.GONE);
+            payType = null;
+        });
+
+        buttonRemove1.setOnClickListener(v -> {
+            buttonAdd1.setVisibility(View.VISIBLE);
+            buttonRemove1.setVisibility(View.GONE);
+            constraintLayout4.getLayoutParams().height = convertDpToPixel(77, requireContext());
+            valueTextView1.setVisibility(View.GONE);
+            midBar1.setVisibility(View.GONE);
+            payType = null;
+        });
+
+        buttonRemove2.setOnClickListener(v -> {
+            buttonAdd2.setVisibility(View.VISIBLE);
+            buttonRemove2.setVisibility(View.GONE);
+            constraintLayout5.getLayoutParams().height = convertDpToPixel(77, requireContext());
+            valueTextView2.setVisibility(View.GONE);
+            midBar2.setVisibility(View.GONE);
             payType = null;
         });
     }

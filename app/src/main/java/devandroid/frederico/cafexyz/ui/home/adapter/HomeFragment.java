@@ -38,7 +38,6 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
     private BottomBarVisibilityListener bottomBarVisibilityListener;
 
     public HomeFragment() {
-        // Required empty public constructor
     }
 
     public interface BottomBarVisibilityListener {

@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,9 +107,11 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
             if (currentDestinationId == R.id.cartFragment) {
                 onCartUpdated(sharedViewModel.calculateTotalValue());
                 bottomBar2.startAnimation(fadeOut);
-                bottomBar.startAnimation(fadeIn);
                 bottomBar2.setVisibility(View.GONE);
-                bottomBar.setVisibility(View.VISIBLE);
+                if (sharedViewModel.cartSize() > 0) {
+                    bottomBar.startAnimation(fadeIn);
+                    bottomBar.setVisibility(View.VISIBLE);
+                }
                 navController.navigate(R.id.homeFragment);
             } else if (currentDestinationId == R.id.paymentFragment) {
                 onCartUpdated(sharedViewModel.calculateDiscountedTotalValue());
