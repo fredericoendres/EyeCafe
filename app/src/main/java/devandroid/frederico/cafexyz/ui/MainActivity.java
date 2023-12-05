@@ -7,16 +7,26 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import devandroid.frederico.cafexyz.data.api.AlarmReceiver;
+import devandroid.frederico.cafexyz.data.api.ApiService;
 import devandroid.frederico.cafexyz.data.database.AppDB;
 import devandroid.frederico.cafexyz.data.database.TransactionEntity;
 import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
@@ -31,6 +41,15 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
     private View bottomBar2;
     private Animation fadeIn;
     private Animation fadeOut;
+    private final BroadcastReceiver toastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction() != null && intent.getAction().equals(ApiService.ACTION_SHOW_TOAST)) {
+                String message = intent.getStringExtra(ApiService.EXTRA_TOAST_MESSAGE);
+                showToast(message);
+            }
+        }
+    };
     @Override
     public void setBottomBarVisibility(int visibility) {
         if (bottomBar.getVisibility() != View.VISIBLE && visibility == View.VISIBLE) {
@@ -53,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        registerReceiver(toastReceiver, new IntentFilter(ApiService.ACTION_SHOW_TOAST));
+        scheduleApiRequests();
         sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
         sharedViewModel.setCartListener(this);
         database = AppDB.getInstance(this);
@@ -126,6 +147,26 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
         }
     }
 
+    private void scheduleApiRequests() {
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        if (alarmManager != null) {
+            long intervalMillis = 60 * 1000;
+            long triggerTime = SystemClock.elapsedRealtime() + intervalMillis;
+
+            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerTime, intervalMillis, pendingIntent);
+        }
+    }
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(toastReceiver);
+    }
 
 }
