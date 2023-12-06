@@ -12,7 +12,7 @@ import retrofit2.Response;
 
 public class ApiService extends Service {
     public static final String ACTION_SHOW_TOAST = "devandroid.frederico.cafexyz.ACTION_SHOW_TOAST";
-    public static final String EXTRA_TOAST_MESSAGE = "toast_message";
+    public static final String EXTRA_TOAST_MESSAGE = "api funcionando service feito com sucesso";
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {

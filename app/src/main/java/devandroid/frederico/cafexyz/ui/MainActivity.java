@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -24,9 +26,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import devandroid.frederico.cafexyz.data.api.AlarmReceiver;
 import devandroid.frederico.cafexyz.data.api.ApiService;
+import devandroid.frederico.cafexyz.data.api.ApiWorker;
 import devandroid.frederico.cafexyz.data.database.AppDB;
 import devandroid.frederico.cafexyz.data.database.TransactionEntity;
 import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
@@ -36,11 +40,13 @@ import devandroid.frederico.cafexyz.ui.home.adapter.HomeFragment;
 public class MainActivity extends AppCompatActivity implements HomeFragment.BottomBarVisibilityListener, SharedViewModel.CartListener {
     private SharedViewModel sharedViewModel;
     List<TransactionEntity> roomDataList = new ArrayList<>();
+    WorkManager workManager = WorkManager.getInstance(MainActivity.this);
     AppDB database;
     private View bottomBar;
     private View bottomBar2;
     private Animation fadeIn;
     private Animation fadeOut;
+
     private final BroadcastReceiver toastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -89,6 +95,10 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMain);
         NavController navController = navHostFragment.getNavController();
+
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(
+                ApiWorker.class, 15, TimeUnit.MINUTES).build();
+        workManager.enqueue(workRequest);
 
         cartBottom.setOnClickListener(view -> {
             navController.navigate(R.id.cartFragment);

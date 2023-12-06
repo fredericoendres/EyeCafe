@@ -17,6 +17,10 @@
         android:theme="@style/Theme.CafeXyz"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <service
+            android:name=".data.api.ApiService"
+            android:enabled="true"
+            android:exported="false" />
         <activity
             android:name=".ui.MainActivity"
             android:exported="false" />
