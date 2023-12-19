@@ -8,8 +8,12 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent serviceIntent = new Intent(context, ApiService.class);
-        context.startService(serviceIntent);
+        if(intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+
+            Intent serviceIntent = new Intent(context, ApiService.class);
+            context.startForegroundService(serviceIntent);
+
+        }
     }
 
 }

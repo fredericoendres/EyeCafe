@@ -39,7 +39,12 @@ public class DeleteDialogFragment extends PopupWindow {
         TextView editTextView = view.findViewById(R.id.editProduct);
         TextView deleteTextView = view.findViewById(R.id.deleteProduct);
         editTextView.setOnClickListener(v -> {
-            EditFragment editFragment = new EditFragment();
+            EditFragment editFragment = EditFragment.newInstance(
+                    productModel.getProductTitle(),
+                    productModel.getProductPrice(),
+                    productModel.getProductImage(),
+                    productModel.getObservation()
+            );
             editFragment.show(((FragmentActivity) context).getSupportFragmentManager(), "EditDialogFragment");
             dismiss();
         });
