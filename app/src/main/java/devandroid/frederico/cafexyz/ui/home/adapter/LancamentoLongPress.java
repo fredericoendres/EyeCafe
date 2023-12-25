@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.data.api.ProductModel;
+import devandroid.frederico.cafexyz.databinding.LancamentoLongpressBinding;
 import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
 
 public class LancamentoLongPress extends DialogFragment {
@@ -35,7 +36,7 @@ public class LancamentoLongPress extends DialogFragment {
     public void setOnDismissListener(OnDismissListener listener) {
         this.onDismissListener = listener;
     }
-
+    private LancamentoLongpressBinding binding;
     private OnDismissListener onDismissListener;
     private SharedViewModel sharedViewModel;
     private String title;
@@ -53,10 +54,8 @@ public class LancamentoLongPress extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.lancamento_longpress, container, false);
-
-
-        return view;
+        binding = LancamentoLongpressBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
 
@@ -84,38 +83,26 @@ public class LancamentoLongPress extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView titleTextView = view.findViewById(R.id.product_title);
-        TextView priceTextView = view.findViewById(R.id.product_price);
-        ImageView imageView = view.findViewById(R.id.longPressImage);
+        binding.productTitle.setText(title);
+        binding.productPrice.setText(price);
+        Glide.with(requireContext()).load(imageUrl).into(binding.longPressImage);
 
-        titleTextView.setText(title);
-        priceTextView.setText(price);
-        Glide.with(requireContext()).load(imageUrl).into(imageView);
-
-        EditText observationText = view.findViewById(R.id.observationText);
-        Button btnCancel = view.findViewById(R.id.btn_cancelar);
-        Button btnOk = view.findViewById(R.id.btn_ok);
-        Button qntAdd = view.findViewById(R.id.qnt_add);
-        Button qntSub = view.findViewById(R.id.qnt_sub_limpar);
-        TextView qntCounter = view.findViewById(R.id.qnt_counter);
-        TextView totalText = view.findViewById(R.id.total_text);
-
-        qntAdd.setOnClickListener(v -> {
+        binding.qntAdd.setOnClickListener(v -> {
             counter++;
-            updateCounter(qntCounter, totalText);
+            updateCounter(binding.qntCounter, binding.totalText);
         });
 
-        qntSub.setOnClickListener(v -> {
+        binding.qntSubLimpar.setOnClickListener(v -> {
             if (counter > 0) {
                 counter--;
-                updateCounter(qntCounter, totalText);
+                updateCounter(binding.qntCounter, binding.totalText);
             }
         });
 
-        btnCancel.setOnClickListener(v -> dismiss());
+        binding.btnCancelar.setOnClickListener(v -> dismiss());
 
-        btnOk.setOnClickListener(v -> {
-            ProductModel productModel = new ProductModel(title, Double.parseDouble(price.replace("R$ ", "").replace(",", ".")), imageUrl, observationText.getText().toString());
+        binding.btnOk.setOnClickListener(v -> {
+            ProductModel productModel = new ProductModel(title, Double.parseDouble(price.replace("R$ ", "").replace(",", ".")), imageUrl, binding.observationText.getText().toString());
             sharedViewModel.addToCart(productModel, counter);
             dismiss();
             if (onDismissListener != null) {

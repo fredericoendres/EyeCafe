@@ -8,28 +8,22 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.app.ActivityManager;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import devandroid.frederico.cafexyz.data.api.AlarmReceiver;
 import devandroid.frederico.cafexyz.data.api.ApiService;
 import devandroid.frederico.cafexyz.data.database.AppDB;
 import devandroid.frederico.cafexyz.data.database.TransactionEntity;
+import devandroid.frederico.cafexyz.databinding.ActivityMainBinding;
 import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.ui.home.adapter.HomeFragment;
@@ -38,25 +32,22 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
     private SharedViewModel sharedViewModel;
     List<TransactionEntity> roomDataList = new ArrayList<>();
     AppDB database;
-    private View bottomBar;
-    private View bottomBar2;
+    private ActivityMainBinding binding;
     private Animation fadeIn;
     private Animation fadeOut;
     @Override
     public void setBottomBarVisibility(int visibility) {
-        if (bottomBar.getVisibility() != View.VISIBLE && visibility == View.VISIBLE) {
-            bottomBar.startAnimation(fadeIn);
+        if (binding.bottomBar.getVisibility() != View.VISIBLE && visibility == View.VISIBLE) {
+            binding.bottomBar.startAnimation(fadeIn);
         }
-        bottomBar.setVisibility(visibility);
+        binding.bottomBar.setVisibility(visibility);
     }
 
     @Override
     public void onCartUpdated(double totalValue) {
-        TextView totalValueTextView = findViewById(R.id.totalBottom);
-        totalValueTextView.setText(String.format("R$ %.2f", totalValue));
+        binding.totalBottom.setText(String.format("R$ %.2f", totalValue));
         int cartSize = sharedViewModel.cartSize();
-        TextView itemCount = findViewById(R.id.itemTotal);
-        itemCount.setText(String.format("%d items", cartSize));
+        binding.itemTotal.setText(String.format("%d items", cartSize));
     }
 
     public boolean foregroundServiceRunning(){
@@ -72,7 +63,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
         sharedViewModel.setCartListener(this);
         database = AppDB.getInstance(this);
@@ -80,43 +72,35 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
         Intent serviceIntent = new Intent(this, ApiService.class);
         startForegroundService(serviceIntent);
         foregroundServiceRunning();
-
-        ImageView nextButton = findViewById(R.id.arrowBottom);
-        ImageView nextButton2 = findViewById(R.id.arrowBottom2);
-        ImageView cartBottom = findViewById(R.id.cartBottom);
-        TextView totalBottom2 = findViewById(R.id.totalBottom2);
-        TextView itemCount = findViewById(R.id.itemTotal);
-        bottomBar = findViewById(R.id.bottomBar);
-        bottomBar2 = findViewById(R.id.bottomBar2);
         fadeIn = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fade_in);
         fadeOut = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fade_out);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMain);
         NavController navController = navHostFragment.getNavController();
 
-        cartBottom.setOnClickListener(view -> {
+        binding.cartBottom.setOnClickListener(view -> {
             navController.navigate(R.id.cartFragment);
-            bottomBar.startAnimation(fadeOut);
-            bottomBar2.startAnimation(fadeIn);
-            bottomBar.setVisibility(View.GONE);
-            bottomBar2.setVisibility(View.VISIBLE);
+            binding.bottomBar.startAnimation(fadeOut);
+            binding.bottomBar2.startAnimation(fadeIn);
+            binding.bottomBar.setVisibility(View.GONE);
+            binding.bottomBar2.setVisibility(View.VISIBLE);
         });
-        nextButton.setOnClickListener(view -> {
+        binding.arrowBottom.setOnClickListener(view -> {
             Double totalValue = sharedViewModel.calculateTotalValue();
             int cartSize = sharedViewModel.cartSize();
             navController.navigate(R.id.cartFragment);
-            bottomBar.startAnimation(fadeOut);
-            bottomBar2.startAnimation(fadeIn);
-            bottomBar.setVisibility(View.GONE);
-            bottomBar2.setVisibility(View.VISIBLE);
-            totalBottom2.setText(String.format("R$ %.2f", totalValue));
-            itemCount.setText(String.format("%d items", cartSize));
+            binding.bottomBar.startAnimation(fadeOut);
+            binding.bottomBar2.startAnimation(fadeIn);
+            binding.bottomBar.setVisibility(View.GONE);
+            binding.bottomBar2.setVisibility(View.VISIBLE);
+            binding.totalBottom2.setText(String.format("R$ %.2f", totalValue));
+            binding.itemTotal.setText(String.format("%d items", cartSize));
         });
 
-        nextButton2.setOnClickListener(view -> {
+        binding.arrowBottom2.setOnClickListener(view -> {
             navController.navigate(R.id.paymentFragment);
-            bottomBar2.startAnimation(fadeOut);
-            bottomBar2.setVisibility(View.GONE);
+            binding.bottomBar2.startAnimation(fadeOut);
+            binding.bottomBar2.setVisibility(View.GONE);
         });
 
 
@@ -131,17 +115,17 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
 
             if (currentDestinationId == R.id.cartFragment) {
                 onCartUpdated(sharedViewModel.calculateTotalValue());
-                bottomBar2.startAnimation(fadeOut);
-                bottomBar2.setVisibility(View.GONE);
+                binding.bottomBar2.startAnimation(fadeOut);
+                binding.bottomBar2.setVisibility(View.GONE);
                 if (sharedViewModel.cartSize() > 0) {
-                    bottomBar.startAnimation(fadeIn);
-                    bottomBar.setVisibility(View.VISIBLE);
+                    binding.bottomBar.startAnimation(fadeIn);
+                    binding.bottomBar.setVisibility(View.VISIBLE);
                 }
                 navController.navigate(R.id.homeFragment);
             } else if (currentDestinationId == R.id.paymentFragment) {
                 onCartUpdated(sharedViewModel.calculateDiscountedTotalValue());
-                bottomBar2.startAnimation(fadeIn);
-                bottomBar2.setVisibility(View.VISIBLE);
+                binding.bottomBar2.startAnimation(fadeIn);
+                binding.bottomBar2.setVisibility(View.VISIBLE);
                 navController.navigate(R.id.cartFragment);
             } else {
                 super.onBackPressed();

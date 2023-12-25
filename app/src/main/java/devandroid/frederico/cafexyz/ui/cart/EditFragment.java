@@ -21,15 +21,18 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import devandroid.frederico.cafexyz.R;
+import devandroid.frederico.cafexyz.databinding.EditLayoutBinding;
+import devandroid.frederico.cafexyz.databinding.HomeFragmentBinding;
 
 public class EditFragment extends DialogFragment {
 
     private SharedViewModel sharedViewModel;
+    private EditLayoutBinding binding;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.edit_layout, container, false);
-        return view;
+        binding = EditLayoutBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     public static EditFragment newInstance(String productTitle, double productPrice, String productImage, String observation) {
@@ -70,21 +73,15 @@ public class EditFragment extends DialogFragment {
         double productPrice = getArguments().getDouble("productPrice", 0.0);
         String productImage = getArguments().getString("productImage", "");
         String observation = getArguments().getString("observation", "");
-        EditText observationText = view.findViewById(R.id.observationText);
-        TextView titleTextView = view.findViewById(R.id.product_title);
-        TextView priceTextView = view.findViewById(R.id.product_price);
-        ShapeableImageView imageView = view.findViewById(R.id.longPressImage);
-        Button btnCancel = view.findViewById(R.id.btn_cancelar);
-        Button btnOk = view.findViewById(R.id.btn_ok);
-        titleTextView.setText(productTitle);
-        observationText.setText(observation);
-        priceTextView.setText(String.format("R$ %.2f", productPrice));
+        binding.productTitle.setText(productTitle);
+        binding.observationText.setText(observation);
+        binding.productPrice.setText(String.format("R$ %.2f", productPrice));
         Glide.with(requireContext())
                 .load(productImage)
-                .into(imageView);
+                .into(binding.longPressImage);
 
-        btnCancel.setOnClickListener(v -> dismiss());
+        binding.btnCancelar.setOnClickListener(v -> dismiss());
 
-        btnOk.setOnClickListener(v -> dismiss());
+        binding.btnOk.setOnClickListener(v -> dismiss());
     }
 }

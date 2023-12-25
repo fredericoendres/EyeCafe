@@ -40,7 +40,7 @@
             android:layout_height="50dp"
             android:layout_marginBottom="32dp"
             android:src="@drawable/ovos"
-            app:layout_constraintBottom_toTopOf="@+id/observation_text"
+            app:layout_constraintBottom_toTopOf="@+id/observation_title"
             app:layout_constraintStart_toStartOf="parent"
             app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
 
@@ -67,12 +67,12 @@
             android:layout_marginBottom="32dp"
             android:text="@string/price_placeholder"
             android:textAlignment="textStart"
-            app:layout_constraintBottom_toTopOf="@+id/observation_text"
+            app:layout_constraintBottom_toTopOf="@+id/observation_title"
             app:layout_constraintStart_toEndOf="@+id/longPressImage" />
 
 
         <TextView
-            android:id="@+id/observation_text"
+            android:id="@+id/observation_title"
             style="@style/SmallBold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

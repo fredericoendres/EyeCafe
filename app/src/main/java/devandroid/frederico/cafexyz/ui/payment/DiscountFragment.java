@@ -17,16 +17,18 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import devandroid.frederico.cafexyz.R;
+import devandroid.frederico.cafexyz.databinding.DiscountLayoutBinding;
+import devandroid.frederico.cafexyz.databinding.EditLayoutBinding;
 import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
 import devandroid.frederico.cafexyz.ui.home.adapter.DiscountClickListener;
 
 public class DiscountFragment extends DialogFragment implements View.OnClickListener {
 
     private StringBuilder discountAmount = new StringBuilder();
-    private TextView discountValueTextView;
 
     private SharedViewModel sharedViewModel;
     private DiscountClickListener discountClickListener;
+    private DiscountLayoutBinding binding;
 
     public void setCallback (DiscountClickListener discountClickListener) {
         this.discountClickListener = discountClickListener;
@@ -35,25 +37,22 @@ public class DiscountFragment extends DialogFragment implements View.OnClickList
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.discount_layout, container, false);
-
-        discountValueTextView = view.findViewById(R.id.discount_value);
-        view.findViewById(R.id.qnt_sub0).setOnClickListener(this);
-        view.findViewById(R.id.qnt_sub1).setOnClickListener(this);
-        view.findViewById(R.id.qnt_sub2).setOnClickListener(this);
-        view.findViewById(R.id.qnt_sub3).setOnClickListener(this);
-        view.findViewById(R.id.qnt_sub4).setOnClickListener(this);
-        view.findViewById(R.id.qnt_sub5).setOnClickListener(this);
-        view.findViewById(R.id.qnt_sub6).setOnClickListener(this);
-        view.findViewById(R.id.qnt_sub7).setOnClickListener(this);
-        view.findViewById(R.id.qnt_sub8).setOnClickListener(this);
-        view.findViewById(R.id.qnt_sub9).setOnClickListener(this);
-        view.findViewById(R.id.qnt_sub_delete).setOnClickListener(this);
-        view.findViewById(R.id.qnt_sub_limpar).setOnClickListener(this);
-        view.findViewById(R.id.btn_cancelar).setOnClickListener(this);
-        view.findViewById(R.id.btn_ok).setOnClickListener(this);
-
-        return view;
+        binding = DiscountLayoutBinding.inflate(inflater, container, false);
+        binding.qntSub0.setOnClickListener(this);
+        binding.qntSub1.setOnClickListener(this);
+        binding.qntSub2.setOnClickListener(this);
+        binding.qntSub3.setOnClickListener(this);
+        binding.qntSub4.setOnClickListener(this);
+        binding.qntSub5.setOnClickListener(this);
+        binding.qntSub6.setOnClickListener(this);
+        binding.qntSub7.setOnClickListener(this);
+        binding.qntSub8.setOnClickListener(this);
+        binding.qntSub9.setOnClickListener(this);
+        binding.qntSubDelete.setOnClickListener(this);
+        binding.qntSubLimpar.setOnClickListener(this);
+        binding.btnCancelar.setOnClickListener(this);
+        binding.btnOk.setOnClickListener(this);
+        return binding.getRoot();
     }
 
     @Override
@@ -76,16 +75,15 @@ public class DiscountFragment extends DialogFragment implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        int id = view.getId();
-        if (id == R.id.qnt_sub_delete) {
+        if (view.equals(binding.qntSubDelete)) {
             if (discountAmount.length() > 0) {
                 discountAmount.deleteCharAt(discountAmount.length() - 1);
             }
-        } else if (id == R.id.qnt_sub_limpar) {
+        } else if (view.equals(binding.qntSubLimpar)) {
             discountAmount.setLength(0);
-        } else if (id == R.id.btn_cancelar) {
+        } else if (view.equals(binding.btnCancelar)) {
             dismiss();
-        } else if (id == R.id.btn_ok) {
+        } else if (view.equals(binding.btnOk)) {
                 if (discountAmount.length() > 0) {
                     sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
                     double discount = Double.parseDouble(discountAmount.toString());
@@ -104,7 +102,7 @@ public class DiscountFragment extends DialogFragment implements View.OnClickList
     }
 
     private void updateDiscountValue(String discount) {
-        discountValueTextView.setText(discount + "%");
+        binding.discountValue.setText(discount + "%");
     }
 }
 
