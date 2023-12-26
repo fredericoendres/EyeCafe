@@ -49,6 +49,9 @@ public class PaymentFragment extends Fragment implements DiscountClickListener {
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         double totalValue = sharedViewModel.calculateTotalValue();
         binding.totalValue.setText(String.format("R$ %.2f", totalValue));
+        if (sharedViewModel.calculateDiscountedTotalValue() > 0) {
+            binding.totalValue.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
+        }
         return binding.getRoot();
     }
 

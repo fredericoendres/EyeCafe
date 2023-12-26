@@ -77,6 +77,20 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMain);
         NavController navController = navHostFragment.getNavController();
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            int destinationId = destination.getId();
+            if (sharedViewModel.cartSize() > 0) {
+                if (destinationId == R.id.homeFragment) {
+                    binding.totalBottom.setText(String.format("R$ %.2f", sharedViewModel.calculateTotalValue()));
+                    binding.itemTotal.setText(String.format("%d items", sharedViewModel.cartSize()));
+                    binding.bottomBar.setVisibility(View.VISIBLE);
+                } else if (destinationId == R.id.cartFragment) {
+                    binding.totalBottom2.setText(String.format("R$ %.2f", sharedViewModel.calculateTotalValue()));
+                    binding.bottomBar.setVisibility(View.GONE);
+                    binding.bottomBar2.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         binding.cartBottom.setOnClickListener(view -> {
             navController.navigate(R.id.cartFragment);
@@ -102,8 +116,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
             binding.bottomBar2.startAnimation(fadeOut);
             binding.bottomBar2.setVisibility(View.GONE);
         });
-
-
     }
     public void onBackPressed() {
         FragmentManager fragmentManager = getSupportFragmentManager();
