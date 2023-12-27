@@ -40,6 +40,50 @@ public class PaymentFragment extends Fragment implements DiscountClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            payType = savedInstanceState.getString("payType");
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString("payType", payType);
+        super.onSaveInstanceState(outState);
+    }
+    private void updateUIForPayType() {
+        if (payType != null) {
+            if (payType == "Dinheiro") {
+                binding.qntAdd0.setVisibility(View.GONE);
+                binding.qntRemove0.setVisibility(View.VISIBLE);
+                binding.constraintLayout2.getLayoutParams().height = convertDpToPixel(133, requireContext());
+                binding.valueText.setVisibility(View.VISIBLE);
+                binding.valueText.setText(String.format("R$ %.2f", sharedViewModel.calculateTotalValue()));
+                if (sharedViewModel.calculateDiscountedTotalValue() > 0) {
+                    binding.valueText.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
+                }
+                binding.midBar0.setVisibility(View.VISIBLE);
+            } else if (payType == "Crédito") {
+                binding.qntAdd1.setVisibility(View.GONE);
+                binding.qntRemove1.setVisibility(View.VISIBLE);
+                binding.constraintLayout4.getLayoutParams().height = convertDpToPixel(133, requireContext());
+                binding.valueText1.setVisibility(View.VISIBLE);
+                binding.valueText1.setText(String.format("R$ %.2f", sharedViewModel.calculateTotalValue()));
+                if (sharedViewModel.calculateDiscountedTotalValue() > 0) {
+                    binding.valueText1.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
+                }
+                binding.midBar1.setVisibility(View.VISIBLE);
+            } else if (payType == "Débito") {
+                binding.qntAdd2.setVisibility(View.GONE);
+                binding.qntRemove2.setVisibility(View.VISIBLE);
+                binding.constraintLayout5.getLayoutParams().height = convertDpToPixel(133, requireContext());
+                binding.valueText2.setVisibility(View.VISIBLE);
+                binding.valueText2.setText(String.format("R$ %.2f", sharedViewModel.calculateTotalValue()));
+                if (sharedViewModel.calculateDiscountedTotalValue() > 0) {
+                    binding.valueText2.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
+                }
+                binding.midBar2.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @Override
@@ -52,6 +96,7 @@ public class PaymentFragment extends Fragment implements DiscountClickListener {
         if (sharedViewModel.calculateDiscountedTotalValue() > 0) {
             binding.totalValue.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
         }
+        updateUIForPayType();
         return binding.getRoot();
     }
 
@@ -169,6 +214,9 @@ public class PaymentFragment extends Fragment implements DiscountClickListener {
             double totalValue = sharedViewModel.calculateTotalValue();
             if (sharedViewModel.calculateDiscountedTotalValue() > 0) {
                 binding.totalValue.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
+                binding.valueText.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
+                binding.valueText1.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
+                binding.valueText2.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
             } else {
                 binding.totalValue.setText(String.format("R$ %.2f", totalValue));
             }

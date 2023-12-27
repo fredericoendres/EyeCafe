@@ -93,15 +93,27 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
         });
 
         binding.cartBottom.setOnClickListener(view -> {
+            Double totalValue = sharedViewModel.calculateTotalValue();
+            int cartSize = sharedViewModel.cartSize();
+            binding.topBar.startAnimation(fadeOut);
+            binding.topBar.setVisibility(View.GONE);
+            binding.topBarCart.startAnimation(fadeIn);
+            binding.topBarCart.setVisibility(View.VISIBLE);
             navController.navigate(R.id.cartFragment);
             binding.bottomBar.startAnimation(fadeOut);
             binding.bottomBar2.startAnimation(fadeIn);
             binding.bottomBar.setVisibility(View.GONE);
             binding.bottomBar2.setVisibility(View.VISIBLE);
+            binding.totalBottom2.setText(String.format("R$ %.2f", totalValue));
+            binding.itemTotal.setText(String.format("%d items", cartSize));
         });
         binding.arrowBottom.setOnClickListener(view -> {
             Double totalValue = sharedViewModel.calculateTotalValue();
             int cartSize = sharedViewModel.cartSize();
+            binding.topBar.startAnimation(fadeOut);
+            binding.topBar.setVisibility(View.GONE);
+            binding.topBarCart.startAnimation(fadeIn);
+            binding.topBarCart.setVisibility(View.VISIBLE);
             navController.navigate(R.id.cartFragment);
             binding.bottomBar.startAnimation(fadeOut);
             binding.bottomBar2.startAnimation(fadeIn);
