@@ -2,6 +2,8 @@ package devandroid.frederico.cafexyz.ui.cart;
 
 import android.content.Context;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ public class SharedViewModel extends ViewModel {
     public int getClickCount() {
         return clickCount;
     }
+    private MutableLiveData<Double> totalValueLiveData = new MutableLiveData<>();
 
     public void setClickCount(int clickCount) {
         this.clickCount = clickCount;
@@ -52,12 +55,18 @@ public class SharedViewModel extends ViewModel {
         this.cartListener = listener;
     }
 
+    public LiveData<Double> getTotalValueLiveData() {
+        return totalValueLiveData;
+    }
+
     public void finalizarVenda(Context context) {
         notifyCartUpdate();
         roomRepository = new TransactionRepository(context);
         roomRepository.insertTransaction(calculateDiscountedTotalValue(), getPaymentType());
         cartItems.clear();
+        limparDiscount();
     }
+
 
     public void applyDiscount(double discount) {
         this.discountAmount = discount;
@@ -67,6 +76,7 @@ public class SharedViewModel extends ViewModel {
     public void notifyTotalValueUpdate() {
         if (cartListener != null) {
             cartListener.onCartUpdated(calculateDiscountedTotalValue());
+            totalValueLiveData.setValue(calculateDiscountedTotalValue());
         }
     }
 
@@ -74,6 +84,13 @@ public class SharedViewModel extends ViewModel {
         totalValue = calculateTotalValue();
         double discountedValue = totalValue - (totalValue * discountAmount / 100);
         return discountedValue;
+    }
+
+    public double calculateDiscountedValue() {
+        totalValue = calculateTotalValue();
+        double discountedValue = totalValue - (totalValue * discountAmount / 100);
+        double totalDiscount = totalValue - discountedValue;
+        return totalDiscount;
     }
 
     public void notifyCartUpdate() {
@@ -132,6 +149,14 @@ public class SharedViewModel extends ViewModel {
     public void deleteItem(ProductModel productModel) {
         cartItems.remove(productModel);
         notifyCartUpdate();
+    }
+    public void limparCart(){
+        cartItems.clear();
+        notifyCartUpdate();
+    }
+
+    public void limparDiscount(){
+        discountAmount = 0;
     }
 
 }

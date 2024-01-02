@@ -74,6 +74,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
         foregroundServiceRunning();
         fadeIn = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fade_in);
         fadeOut = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fade_out);
+        sharedViewModel.getTotalValueLiveData().observe(this, totalValue -> {
+            binding.totalBottom2.setText(String.format("R$ %.2f", totalValue));
+        });
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMain);
         NavController navController = navHostFragment.getNavController();
@@ -108,27 +111,68 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
             binding.itemTotal.setText(String.format("%d items", cartSize));
         });
         binding.arrowBottom.setOnClickListener(view -> {
-            Double totalValue = sharedViewModel.calculateTotalValue();
             int cartSize = sharedViewModel.cartSize();
-            binding.topBar.startAnimation(fadeOut);
             binding.topBar.setVisibility(View.GONE);
-            binding.topBarCart.startAnimation(fadeIn);
             binding.topBarCart.setVisibility(View.VISIBLE);
             navController.navigate(R.id.cartFragment);
             binding.bottomBar.startAnimation(fadeOut);
             binding.bottomBar2.startAnimation(fadeIn);
             binding.bottomBar.setVisibility(View.GONE);
             binding.bottomBar2.setVisibility(View.VISIBLE);
-            binding.totalBottom2.setText(String.format("R$ %.2f", totalValue));
+            binding.totalBottom2.setText(String.format("R$ %.2f", sharedViewModel.calculateTotalValue()));
             binding.itemTotal.setText(String.format("%d items", cartSize));
         });
 
         binding.arrowBottom2.setOnClickListener(view -> {
             navController.navigate(R.id.paymentFragment);
+            binding.topBarCart.setVisibility(View.GONE);
+            binding.topBarPayment.setVisibility(View.VISIBLE);
             binding.bottomBar2.startAnimation(fadeOut);
             binding.bottomBar2.setVisibility(View.GONE);
         });
+
+        binding.imageLimpar.setOnClickListener(view -> {
+            sharedViewModel.limparCart();
+            binding.bottomBar2.setVisibility(View.GONE);
+            binding.topBarCart.setVisibility(View.GONE);
+            binding.topBar.setVisibility(View.VISIBLE);
+            navController.navigate(R.id.homeFragment);
+        });
+
+        binding.imageLimparPayment.setOnClickListener(view -> {
+            sharedViewModel.limparCart();
+            binding.topBarPayment.setVisibility(View.GONE);
+            binding.topBar.setVisibility(View.VISIBLE);
+            navController.navigate(R.id.homeFragment);
+        });
+
+        binding.returnButton.setOnClickListener(view -> {
+            onCartUpdated(sharedViewModel.calculateTotalValue());
+            binding.bottomBar2.startAnimation(fadeOut);
+            binding.bottomBar2.setVisibility(View.GONE);
+            binding.topBar.setVisibility(View.VISIBLE);
+            binding.topBarCart.setVisibility(View.GONE);
+            binding.topBar.setVisibility(View.VISIBLE);
+            binding.topBarCart.setVisibility(View.GONE);
+            if (sharedViewModel.cartSize() > 0) {
+                binding.bottomBar.startAnimation(fadeIn);
+                binding.bottomBar.setVisibility(View.VISIBLE);
+            }
+            navController.navigate(R.id.homeFragment);
+        });
+
+        binding.returnButtonPayment.setOnClickListener(view -> {
+            onCartUpdated(sharedViewModel.calculateDiscountedTotalValue());
+            binding.bottomBar2.startAnimation(fadeIn);
+            binding.bottomBar2.setVisibility(View.VISIBLE);
+            binding.topBarCart.setVisibility(View.VISIBLE);
+            binding.topBarPayment.setVisibility(View.GONE);
+            navController.navigate(R.id.cartFragment);
+            binding.topBarPayment.setVisibility(View.GONE);
+            binding.topBarCart.setVisibility(View.VISIBLE);
+        });
     }
+
     public void onBackPressed() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
@@ -141,6 +185,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
                 onCartUpdated(sharedViewModel.calculateTotalValue());
                 binding.bottomBar2.startAnimation(fadeOut);
                 binding.bottomBar2.setVisibility(View.GONE);
+                binding.topBar.setVisibility(View.VISIBLE);
+                binding.topBarCart.setVisibility(View.GONE);
                 if (sharedViewModel.cartSize() > 0) {
                     binding.bottomBar.startAnimation(fadeIn);
                     binding.bottomBar.setVisibility(View.VISIBLE);
@@ -150,6 +196,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
                 onCartUpdated(sharedViewModel.calculateDiscountedTotalValue());
                 binding.bottomBar2.startAnimation(fadeIn);
                 binding.bottomBar2.setVisibility(View.VISIBLE);
+                binding.topBarCart.setVisibility(View.VISIBLE);
+                binding.topBarPayment.setVisibility(View.GONE);
                 navController.navigate(R.id.cartFragment);
             } else {
                 super.onBackPressed();

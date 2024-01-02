@@ -51,6 +51,7 @@ public class DeleteDialogFragment extends PopupWindow {
 
         binding.deleteProduct.setOnClickListener(view1 -> {
             int position = sharedViewModel.getCartItems().indexOf(productModel);
+            sharedViewModel.limparDiscount();
             if (position != -1) {
                 sharedViewModel.getCartItems().remove(productModel);
                 if (position < cartAdapter.getItemCount()) {
@@ -58,6 +59,7 @@ public class DeleteDialogFragment extends PopupWindow {
                 } else {
                     cartAdapter.notifyDataSetChanged();
                 }
+                sharedViewModel.notifyTotalValueUpdate();
             }
             dismiss();
         });

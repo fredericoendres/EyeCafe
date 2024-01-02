@@ -95,6 +95,12 @@ public class PaymentFragment extends Fragment implements DiscountClickListener {
         binding.totalValue.setText(String.format("R$ %.2f", totalValue));
         if (sharedViewModel.calculateDiscountedTotalValue() > 0) {
             binding.totalValue.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
+            if(sharedViewModel.calculateDiscountedTotalValue() != sharedViewModel.calculateTotalValue()) {
+                binding.btnRemoveDiscount.setVisibility(View.VISIBLE);
+                binding.btnDiscount.setVisibility(View.GONE);
+                binding.diferencaDesconto.setText(String.format("Desconto: - R$ %.2f", sharedViewModel.calculateDiscountedValue()));
+                binding.diferencaDesconto.setVisibility(View.VISIBLE);
+            }
         }
         updateUIForPayType();
         return binding.getRoot();
@@ -202,6 +208,17 @@ public class PaymentFragment extends Fragment implements DiscountClickListener {
             binding.midBar2.setVisibility(View.GONE);
             payType = null;
         });
+
+        binding.btnRemoveDiscount.setOnClickListener(view1 -> {
+            sharedViewModel.limparDiscount();
+            binding.totalValue.setText(String.format("R$ %.2f", sharedViewModel.calculateTotalValue()));
+            binding.diferencaDesconto.setVisibility(View.GONE);
+            binding.btnRemoveDiscount.setVisibility(View.GONE);
+            binding.btnDiscount.setVisibility(View.VISIBLE);
+            binding.valueText.setText(String.format("R$ %.2f", sharedViewModel.calculateTotalValue()));
+            binding.valueText1.setText(String.format("R$ %.2f", sharedViewModel.calculateTotalValue()));
+            binding.valueText2.setText(String.format("R$ %.2f", sharedViewModel.calculateTotalValue()));
+        });
     }
 
     private int convertDpToPixel(float dp, Context context) {
@@ -217,6 +234,10 @@ public class PaymentFragment extends Fragment implements DiscountClickListener {
                 binding.valueText.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
                 binding.valueText1.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
                 binding.valueText2.setText(String.format("R$ %.2f", sharedViewModel.calculateDiscountedTotalValue()));
+                binding.diferencaDesconto.setVisibility(View.VISIBLE);
+                binding.diferencaDesconto.setText(String.format("Desconto: - R$ %.2f", sharedViewModel.calculateDiscountedValue()));
+                binding.btnDiscount.setVisibility(View.GONE);
+                binding.btnRemoveDiscount.setVisibility(View.VISIBLE);
             } else {
                 binding.totalValue.setText(String.format("R$ %.2f", totalValue));
             }
