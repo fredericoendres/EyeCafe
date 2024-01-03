@@ -17,11 +17,14 @@ import com.bumptech.glide.Glide;
 
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.data.api.ProductModel;
+import devandroid.frederico.cafexyz.databinding.CardLayoutBinding;
+import devandroid.frederico.cafexyz.databinding.CartRecycleBinding;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     private final Context context;
     private final SharedViewModel sharedViewModel;
+    private CartRecycleBinding binding;
 
 
     public CartAdapter(Context context, SharedViewModel sharedViewModel) {
@@ -39,13 +42,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull CartAdapter.ViewHolder holder, int position) {
         ProductModel model = sharedViewModel.getCartItems().get(position);
-        holder.productTitle.setText(model.getProductTitle());
+        holder.binding.productTitle.setText(model.getProductTitle());
         double totalValue = model.getProductPrice();
-        holder.productPrice.setText(String.format("R$ %.2f", totalValue));
+        holder.binding.productPrice.setText(String.format("R$ %.2f", totalValue));
         Glide.with(context)
                 .load(model.getProductImage())
-                .into(holder.productImage);
-        holder.editDialog.setOnClickListener(new View.OnClickListener() {
+                .into(holder.binding.productImage);
+        holder.binding.editDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 NavHostFragment navHostFragment = (NavHostFragment) ((AppCompatActivity) context).getSupportFragmentManager().findFragmentById(R.id.fragmentMain);
@@ -64,18 +67,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView productTitle;
-        private final TextView productPrice;
-        private final ImageView productImage;
-        private final ImageView editDialog;
-
+        private final CartRecycleBinding binding;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            productImage = itemView.findViewById(R.id.productImage);
-            productTitle = itemView.findViewById(R.id.product_title);
-            productPrice = itemView.findViewById(R.id.product_price);
-            editDialog = itemView.findViewById(R.id.editDialog);
+            binding = CartRecycleBinding.bind(itemView);
         }
     }
 }

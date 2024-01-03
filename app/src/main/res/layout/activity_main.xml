@@ -9,7 +9,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/header"
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/round_bar"
@@ -30,7 +30,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/topBar"
+        android:id="@+id/topBarCart"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/round_bar"

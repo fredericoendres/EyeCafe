@@ -150,12 +150,12 @@
             android:layout_marginBottom="15dp"
             android:text="Total: R$ 0,00"
             android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/observation_text"
+            app:layout_constraintBottom_toTopOf="@+id/observation_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/observation_text"
+            android:id="@+id/observation_title"
             style="@style/SecondaryTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

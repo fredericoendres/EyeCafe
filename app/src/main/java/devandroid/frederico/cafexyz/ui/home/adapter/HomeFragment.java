@@ -20,6 +20,7 @@ import devandroid.frederico.cafexyz.data.api.ApiClient;
 import devandroid.frederico.cafexyz.data.api.ApiInterface;
 import devandroid.frederico.cafexyz.data.api.ApiResponse;
 import devandroid.frederico.cafexyz.data.api.ProductModel;
+import devandroid.frederico.cafexyz.databinding.HomeFragmentBinding;
 import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,8 +33,7 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
     private ArrayList<ProductModel> productModelArrayList;
     CardAdapter cardAdapter;
 
-    private ProgressBar progressBar;
-
+    private HomeFragmentBinding binding;
 
     private BottomBarVisibilityListener bottomBarVisibilityListener;
 
@@ -47,29 +47,25 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+        super.onCreate(savedInstanceState);}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
-        View view = inflater.inflate(R.layout.home_fragment, container, false);
-        RecyclerView productRecycle = view.findViewById(R.id.product_recycle); // Refatorar com ViewBinding
-        progressBar = view.findViewById(R.id.progressBar);
-
+        binding = HomeFragmentBinding.inflate(inflater, container, false);
         productModelArrayList = new ArrayList<ProductModel>();
 
         cardAdapter = new CardAdapter(getContext(), productModelArrayList, this, sharedViewModel);
 
-        productRecycle.setAdapter(cardAdapter);
+        binding.productRecycle.setAdapter(cardAdapter);
         populateProduct();
 
-        return view;
+        return binding.getRoot();
     }
 
     public void populateProduct(){
-        progressBar.setVisibility(View.VISIBLE);
+        binding.progressBar.setVisibility(View.VISIBLE);
         ApiClient.getClient().create(ApiInterface.class).getProductList().enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
@@ -79,7 +75,7 @@ public class HomeFragment extends Fragment implements RecycleViewInterface {
                         cardAdapter.notifyDataSetChanged();
                     }
                 }
-                progressBar.setVisibility(View.GONE);
+                binding.progressBar.setVisibility(View.GONE);
             }
 
             @Override

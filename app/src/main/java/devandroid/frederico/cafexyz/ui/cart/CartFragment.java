@@ -13,11 +13,14 @@ import java.util.ArrayList;
 
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.data.api.ProductModel;
+import devandroid.frederico.cafexyz.databinding.CartFragmentBinding;
+import devandroid.frederico.cafexyz.databinding.HomeFragmentBinding;
 
 public class CartFragment extends Fragment {
 
     public CartFragment() {}
     private SharedViewModel sharedViewModel;
+    private CartFragmentBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,14 +31,10 @@ public class CartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.cart_fragment, container, false);
-        RecyclerView cartRecycle = view.findViewById(R.id.cart_recycle);
-
+        binding = CartFragmentBinding.inflate(inflater, container, false);
         ArrayList<ProductModel> cartItems = sharedViewModel.getCartItems();
-
         CartAdapter cartAdapter = new CartAdapter(getContext(), sharedViewModel);
-        cartRecycle.setAdapter(cartAdapter);
-
-        return view;
+        binding.cartRecycle.setAdapter(cartAdapter);
+        return binding.getRoot();
     }
 }

@@ -21,6 +21,7 @@ import devandroid.frederico.cafexyz.data.database.AppDB;
 import devandroid.frederico.cafexyz.data.api.ProductModel;
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.data.database.TransactionEntity;
+import devandroid.frederico.cafexyz.databinding.CardLayoutBinding;
 import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder>
@@ -34,7 +35,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder>
     private List<TransactionEntity> roomDataList;
     private AppDB database;
     private boolean isFirstClick = true;
-
+    private CardLayoutBinding binding;
 
 
     public CardAdapter(Context context, ArrayList<ProductModel> productModelArrayList, RecycleViewInterface recycleViewInterface, SharedViewModel sharedViewModel) {
@@ -73,17 +74,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder>
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView productTitle;
-        private final TextView productPrice;
-        private final ImageView productImage;
-        Button qntBtn;
+        private final CardLayoutBinding binding;
 
         public ViewHolder(@NonNull View itemView, RecycleViewInterface recycleViewInterface) {
             super(itemView);
-            productImage = itemView.findViewById(R.id.productImage);
-            productTitle = itemView.findViewById(R.id.product_title);
-            productPrice = itemView.findViewById(R.id.product_price);
-            qntBtn = itemView.findViewById(R.id.qnt_item);
+            binding = CardLayoutBinding.bind(itemView);
             itemView.setOnClickListener(view -> {
                 if (recycleViewInterface != null) {
                     int position = getAdapterPosition();
@@ -91,12 +86,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder>
                         ProductModel productModel = productModelArrayList.get(position);
                         int productCount = sharedViewModel.productCount(productModel.getProductTitle());
                         if (productCount == 0) {
-                            qntBtn.setVisibility(View.VISIBLE);
+                            binding.qntItem.setVisibility(View.VISIBLE);
                         } else {
-                            qntBtn.setVisibility(productCount > 0 ? View.VISIBLE : View.INVISIBLE);
+                            binding.qntItem.setVisibility(productCount > 0 ? View.VISIBLE : View.INVISIBLE);
                         }
                         productCount++;
-                        qntBtn.setText(String.valueOf(productCount));
+                        binding.qntItem.setText(String.valueOf(productCount));
                         recycleViewInterface.bottomBarVisibility();
                         sharedViewModel.addToCart(productModel);
                         sharedViewModel.notifyCartUpdate();
@@ -113,14 +108,14 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder>
         public void bind(ProductModel productModel){
             double price = productModel.getProductPrice();
             String formattedPrice = String.format("R$ %.2f", price);
-            productPrice.setText(formattedPrice);
-            productTitle.setText(productModel.getProductTitle()+"");
-            Glide.with(context).load(productModel.getProductImage()).into(productImage);
+            binding.productPrice.setText(formattedPrice);
+            binding.productTitle.setText(productModel.getProductTitle()+"");
+            Glide.with(context).load(productModel.getProductImage()).into(binding.productImage);
             int position = getAdapterPosition();
             if (position != RecyclerView.NO_POSITION) {
                 int productCount = sharedViewModel.productCount(productModel.getProductTitle());
-                qntBtn.setVisibility(productCount > 0 ? View.VISIBLE : View.INVISIBLE);
-                qntBtn.setText(String.valueOf(productCount));
+                binding.qntItem.setVisibility(productCount > 0 ? View.VISIBLE : View.INVISIBLE);
+                binding.qntItem.setText(String.valueOf(productCount));
             }
         }
 

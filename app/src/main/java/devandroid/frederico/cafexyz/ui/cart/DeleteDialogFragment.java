@@ -15,20 +15,22 @@ import androidx.navigation.NavController;
 
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.data.api.ProductModel;
+import devandroid.frederico.cafexyz.databinding.DeleteLayoutBinding;
 
 public class DeleteDialogFragment extends PopupWindow {
     private NavController navController;
     private SharedViewModel sharedViewModel;
     private CartAdapter cartAdapter;
     private ProductModel productModel;
+    private DeleteLayoutBinding binding;
 
     public DeleteDialogFragment(Context context, SharedViewModel sharedViewModel, ProductModel productModel, CartAdapter cartAdapter) {
         super(context);
         this.sharedViewModel = sharedViewModel;
         this.productModel = productModel;
         this.cartAdapter = cartAdapter;
-        View view = LayoutInflater.from(context).inflate(R.layout.delete_layout, null);
-        setContentView(view);
+        binding = DeleteLayoutBinding.inflate(LayoutInflater.from(context));
+        setContentView(binding.getRoot());
         int width = context.getResources().getDimensionPixelSize(R.dimen.popup_width);
         int height = context.getResources().getDimensionPixelSize(R.dimen.popup_height);
         setWidth(width);
@@ -36,9 +38,7 @@ public class DeleteDialogFragment extends PopupWindow {
         setFocusable(true);
         setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        TextView editTextView = view.findViewById(R.id.editProduct);
-        TextView deleteTextView = view.findViewById(R.id.deleteProduct);
-        editTextView.setOnClickListener(v -> {
+        binding.editProduct.setOnClickListener(v -> {
             EditFragment editFragment = EditFragment.newInstance(
                     productModel.getProductTitle(),
                     productModel.getProductPrice(),
@@ -49,8 +49,9 @@ public class DeleteDialogFragment extends PopupWindow {
             dismiss();
         });
 
-        deleteTextView.setOnClickListener(view1 -> {
+        binding.deleteProduct.setOnClickListener(view1 -> {
             int position = sharedViewModel.getCartItems().indexOf(productModel);
+            sharedViewModel.limparDiscount();
             if (position != -1) {
                 sharedViewModel.getCartItems().remove(productModel);
                 if (position < cartAdapter.getItemCount()) {
@@ -58,6 +59,7 @@ public class DeleteDialogFragment extends PopupWindow {
                 } else {
                     cartAdapter.notifyDataSetChanged();
                 }
+                sharedViewModel.notifyTotalValueUpdate();
             }
             dismiss();
         });
