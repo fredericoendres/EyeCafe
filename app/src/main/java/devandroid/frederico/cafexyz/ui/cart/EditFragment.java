@@ -77,7 +77,7 @@ public class EditFragment extends DialogFragment {
         binding.observationText.setText(observation);
         binding.productPrice.setText(String.format("R$ %.2f", productPrice));
         Glide.with(requireContext())
-                .load(productImage)
+                .load(productImage).circleCrop()
                 .into(binding.longPressImage);
 
         binding.btnCancelar.setOnClickListener(v -> dismiss());

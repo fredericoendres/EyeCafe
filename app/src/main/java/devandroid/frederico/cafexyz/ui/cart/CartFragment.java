@@ -32,7 +32,6 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = CartFragmentBinding.inflate(inflater, container, false);
-        ArrayList<ProductModel> cartItems = sharedViewModel.getCartItems();
         CartAdapter cartAdapter = new CartAdapter(getContext(), sharedViewModel);
         binding.cartRecycle.setAdapter(cartAdapter);
         return binding.getRoot();

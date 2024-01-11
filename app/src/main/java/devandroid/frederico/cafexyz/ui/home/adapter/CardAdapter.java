@@ -13,6 +13,9 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,7 +113,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder>
             String formattedPrice = String.format("R$ %.2f", price);
             binding.productPrice.setText(formattedPrice);
             binding.productTitle.setText(productModel.getProductTitle()+"");
-            Glide.with(context).load(productModel.getProductImage()).into(binding.productImage);
+            RequestOptions requestOptions = new RequestOptions();
+            requestOptions = requestOptions.transform(new CenterCrop(), new RoundedCorners(25));
+            Glide.with(context).load(productModel.getProductImage()).apply(requestOptions).into(binding.productImage);
             int position = getAdapterPosition();
             if (position != RecyclerView.NO_POSITION) {
                 int productCount = sharedViewModel.productCount(productModel.getProductTitle());

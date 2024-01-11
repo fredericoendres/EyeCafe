@@ -14,6 +14,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.data.api.ProductModel;
@@ -46,7 +48,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         double totalValue = model.getProductPrice();
         holder.binding.productPrice.setText(String.format("R$ %.2f", totalValue));
         Glide.with(context)
-                .load(model.getProductImage())
+                .load(model.getProductImage()).transform(new CenterCrop(),new RoundedCorners(25))
                 .into(holder.binding.productImage);
         holder.binding.editDialog.setOnClickListener(new View.OnClickListener() {
             @Override

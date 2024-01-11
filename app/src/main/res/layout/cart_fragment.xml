@@ -7,21 +7,18 @@
     android:background="@color/background_white">
 
 
-
     <androidx.recyclerview.widget.RecyclerView
-        android:background="@drawable/round_background"
-        android:layout_marginHorizontal="20dp"
         android:id="@+id/cart_recycle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="50dp"
-        tools:listitem="@layout/cart_recycle"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round_background"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/cart_recycle" />
 
 
 
