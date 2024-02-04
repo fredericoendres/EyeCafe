@@ -22,6 +22,7 @@ public class CartFragment extends Fragment {
     private SharedViewModel sharedViewModel;
     private CartFragmentBinding binding;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -27,8 +27,9 @@ import devandroid.frederico.cafexyz.databinding.ActivityMainBinding;
 import devandroid.frederico.cafexyz.ui.cart.SharedViewModel;
 import devandroid.frederico.cafexyz.R;
 import devandroid.frederico.cafexyz.ui.home.adapter.HomeFragment;
+import devandroid.frederico.cafexyz.ui.payment.PaymentFragmentListener;
 
-public class MainActivity extends AppCompatActivity implements HomeFragment.BottomBarVisibilityListener, SharedViewModel.CartListener {
+public class MainActivity extends AppCompatActivity implements HomeFragment.BottomBarVisibilityListener, SharedViewModel.CartListener, PaymentFragmentListener {
     private SharedViewModel sharedViewModel;
     List<TransactionEntity> roomDataList = new ArrayList<>();
     AppDB database;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
         }
         binding.bottomBar.setVisibility(visibility);
     }
+
+
 
     @Override
     public void onCartUpdated(double totalValue) {
@@ -212,4 +215,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Bott
         super.onDestroy();
     }
 
+    @Override
+    public void onPaymentFragmentFinish() {
+        binding.topBarPayment.setVisibility(View.GONE);
+        binding.topBar.setVisibility(View.VISIBLE);
+    }
 }

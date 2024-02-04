@@ -11,11 +11,13 @@
     <fragment
         android:id="@+id/paymentFragment"
         android:name="devandroid.frederico.cafexyz.ui.payment.PaymentFragment"
-        android:label="PaymentFragment" />
+        android:label="PaymentFragment"
+        android:tag="PaymentFragment"/>
     <fragment
         android:id="@+id/cartFragment"
         android:name="devandroid.frederico.cafexyz.ui.cart.CartFragment"
-        android:label="CartFragment" />
+        android:label="CartFragment"
+        android:tag="CartFragment"/>
     <fragment
         android:id="@+id/editFragment"
         android:name="devandroid.frederico.cafexyz.ui.cart.EditFragment"

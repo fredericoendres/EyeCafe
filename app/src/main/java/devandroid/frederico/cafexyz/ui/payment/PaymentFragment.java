@@ -31,6 +31,8 @@ public class PaymentFragment extends Fragment implements DiscountClickListener {
     double totalValue;
     private String payType;
     private PaymentFragmentBinding binding;
+    private PaymentFragmentListener paymentFragmentListener;
+
 
     public PaymentFragment() {
     }
@@ -42,6 +44,15 @@ public class PaymentFragment extends Fragment implements DiscountClickListener {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
             payType = savedInstanceState.getString("payType");
+        }
+    }
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof PaymentFragmentListener) {
+            paymentFragmentListener = (PaymentFragmentListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + " falta implementar o PaymentFragmentListener");
         }
     }
 
@@ -120,12 +131,14 @@ public class PaymentFragment extends Fragment implements DiscountClickListener {
             if (payType != null) {
                 sharedViewModel.setPaymentType(payType);
                 sharedViewModel.finalizarVenda(requireContext());
-                NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentMain);
-                navController.navigate(R.id.homeFragment);
-            }
-            else {
+                if (paymentFragmentListener != null) {
+                    paymentFragmentListener.onPaymentFragmentFinish();
+                }
+            } else {
                 Snackbar.make(requireView(), "Selecione uma forma de pagamento para prosseguir", Snackbar.LENGTH_LONG).show();
             }
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentMain);
+            navController.navigate(R.id.homeFragment);
         });
 
         binding.qntAdd0.setOnClickListener(v -> {
